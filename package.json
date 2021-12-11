@@ -1,6 +1,6 @@
 {
-  "name": "nextjs-with-typescript",
-  "version": "5.0.0",
+  "name": "social-app",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,18 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^1.6.1",
     "@emotion/cache": "latest",
     "@emotion/react": "latest",
     "@emotion/server": "latest",
     "@emotion/styled": "latest",
+    "@material-ui/core": "^4.12.3",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
+    "dotenv": "^10.0.0",
     "next": "latest",
-    "react": "latest",
+    "react": "^17.0.2",
     "react-dom": "latest"
   },
   "devDependencies": {
-    "@types/react": "latest",
+    "@types/react": "^17.0.37",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "typescript": "latest"
