@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Link from '../components/Link';
 import Copyright from '../components/Copyright';
-
+import { RegisterForm } from '../components/Forms/RegisterForm/RegisterForm';
 
 const Home: NextPage = () => {
   return (
@@ -22,12 +22,10 @@ const Home: NextPage = () => {
         <Typography variant="h4" component="h1" gutterBottom>
           MUI v5 + Next.js with TypeScript example
         </Typography>
-        <a href="/api/auth/login">Login</a>
-        <a href="/api/auth/logout">Logout</a>
-
         <Link href="/about" color="secondary">
           Go to the about page
         </Link>
+          <RegisterForm/>
         <Copyright />
       </Box>
     </Container>

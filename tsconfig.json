@@ -17,6 +17,6 @@
     "incremental": true
     
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/profile/profile.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/profile/profile.tsx", "src/components/Forms/RegisterForm"],
   "exclude": ["node_modules"]
 }
