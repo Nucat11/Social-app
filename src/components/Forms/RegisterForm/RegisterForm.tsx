@@ -1,11 +1,8 @@
 import React from "react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
-import * as Yup from "yup";
 import { validationSchema } from "../../../helpers/formSchemas";
-import { IconButton } from "@mui/material";
-import { app, auth, db } from "../../../pages/api/firebase/firebase";
+import { auth, db } from "../../../pages/api/firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, set } from "firebase/database";
 
@@ -17,27 +14,23 @@ interface UserSubmitForm {
   acceptTerms: boolean;
 }
 
+
+
 export const RegisterForm: React.FC = () => {
   function writeUserData(
     userId: string,
     fullname: string,
     email: string,
-    date: Date,
+    date: string,
     terms: boolean
   ) {
     set(ref(db, "users/" + userId), {
-      fullname: fullname,
-      email: email,
-
-      date: date,
-      terms: terms,
+      fullname,
+      email,
+      date,
+      terms,
     });
   }
-
-  const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => {
-    setShowPassword((prevValue) => !prevValue);
-  };
 
   const {
     register,
@@ -48,18 +41,18 @@ export const RegisterForm: React.FC = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = (data: UserSubmitForm) => {
-    createUserWithEmailAndPassword(auth, data.email, data.password)
+  const onSubmit: SubmitHandler<UserSubmitForm> = async (data) => {
+    await createUserWithEmailAndPassword(auth, data.email, data.password)
       .then((cred) => {
         writeUserData(
           cred.user.uid,
           data.fullname,
           data.email,
-          data.date,
+          JSON.stringify(data.date),
           data.acceptTerms
-        );
+        )
         reset();
-        console.log(cred);
+        const user = cred.user;
       })
       .catch((err) => {
         console.log(err.message);
@@ -68,33 +61,33 @@ export const RegisterForm: React.FC = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div>
-          <label htmlFor="fullname">Full Name</label>
+          <label>Full Name</label>
           <input type="text" {...register("fullname")} />
           <div>{errors.fullname?.message}</div>
         </div>
 
         <div>
           <label>Email</label>
-          <input type="text" {...register("email")} id="email" />
+          <input type="text" {...register("email")} />
           <div>{errors.email?.message}</div>
         </div>
 
         <div>
           <label>Password</label>
-          <input type="password" {...register("password")} id="password" />
+          <input type="password" {...register("password")} />
           <div>{errors.password?.message}</div>
         </div>
 
         <div>
           <label>Date of birth</label>
-          <input type="date" {...register("date")} id="date" />
+          <input type="date" {...register("date")} />
           <div>{errors.date?.message}</div>
         </div>
 
         <div>
-          <input type="checkbox" {...register("acceptTerms")} id="checkbox" />
+          <input type="checkbox" {...register("acceptTerms")} />
           <label htmlFor="acceptTerms">
             I have read and agree to the Terms
           </label>
@@ -103,9 +96,6 @@ export const RegisterForm: React.FC = () => {
 
         <div>
           <button type="submit">Register</button>
-          <button type="button" onClick={() => reset()}>
-            Reset
-          </button>
         </div>
       </form>
     </div>

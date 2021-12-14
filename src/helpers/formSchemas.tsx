@@ -19,3 +19,8 @@ export const validationSchema = Yup.object().shape({
     "The terms and conditions must be accepted."
   ),
 });
+export const loginValidationSchema = Yup.object().shape({
+  emailLogin: Yup.string().required("Email is required").email("Email is invalid"),
+  passwordLogin: Yup.string()
+    .required("Password is required")
+});

@@ -6,6 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import theme from "../styles/theme";
 import createEmotionCache from "../utils/createEmotionCache";
+import { AuthProvider } from "../components/AuthContext/AuthContext";
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
@@ -18,6 +19,7 @@ export default function MyApp(props: MyAppProps) {
 
   return (
     <CacheProvider value={emotionCache}>
+      <AuthProvider>
       <Head>
         <title>Social app</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
@@ -27,6 +29,7 @@ export default function MyApp(props: MyAppProps) {
         <CssBaseline />
         <Component {...pageProps} />
       </ThemeProvider>
+      </AuthProvider>
     </CacheProvider>
   );
 }
