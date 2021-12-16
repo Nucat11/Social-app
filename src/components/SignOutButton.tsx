@@ -1,5 +1,5 @@
 import { getAuth, signOut } from "firebase/auth";
-import {auth} from '../pages/api/firebase/firebase'
+import {auth} from '../../lib/firebase/firebase'
 
 const SignOut = () => {
     signOut(auth).then(() => {

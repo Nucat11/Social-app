@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { yupResolver } = require('@hookform/resolvers/yup')
 import { validationSchema } from "../../../helpers/formSchemas";
-import { auth, db } from "../../../pages/api/firebase/firebase";
+import { auth, db } from "../../../../lib/firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, set } from "firebase/database";
 
@@ -23,13 +23,15 @@ export const RegisterForm: React.FC = () => {
     fullname: string,
     email: string,
     date: string,
-    terms: boolean
+    terms: boolean,
+    posts: Array<object>
   ) {
     set(ref(db, "users/" + userId), {
       fullname,
       email,
       date,
       terms,
+      posts
     });
   }
 
@@ -50,7 +52,8 @@ export const RegisterForm: React.FC = () => {
           data.fullname,
           data.email,
           JSON.stringify(data.date),
-          data.acceptTerms
+          data.acceptTerms,
+          []
         )
         reset();
         const user = cred.user;

@@ -10,6 +10,7 @@ import { AuthContext } from "../components/AuthContext/AuthContext";
 import { useContext } from "react";
 import { ContextState } from "../components/AuthContext/AuthContext";
 import {SignOutButton} from '../components/SignOutButton'
+import {Newsfeed} from '../components/NewsFeed/NewsFeed'
 
 
 const Home: NextPage = () => {
@@ -32,7 +33,7 @@ const Home: NextPage = () => {
           <Link href="/about" color="secondary">
             Go to the about page
           </Link>
-          {!user ? <LoginAndRegister /> : <div><h2>JD2</h2> <SignOutButton/></div>}
+          {!user ? <LoginAndRegister /> : <Newsfeed/>}
           <Copyright />
         </Box>
       </Container>
