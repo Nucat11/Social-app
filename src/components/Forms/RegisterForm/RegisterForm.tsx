@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { yupResolver } = require('@hookform/resolvers/yup')
 import { validationSchema } from "../../../helpers/formSchemas";
 import { auth, db } from "../../../pages/api/firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";

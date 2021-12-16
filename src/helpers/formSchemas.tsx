@@ -1,4 +1,5 @@
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { yupResolver } = require('@hookform/resolvers/yup')
 import * as Yup from "yup";
 
 export const validationSchema = Yup.object().shape({
