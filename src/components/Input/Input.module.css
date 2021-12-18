@@ -1,0 +1,9 @@
+.inputDiv {
+  display: flex;
+}
+.labelDiv {
+  width: 100%;
+}
+.inputHalfDiv {
+  width: 100%;
+}

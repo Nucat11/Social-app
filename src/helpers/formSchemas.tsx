@@ -26,5 +26,5 @@ export const loginValidationSchema = Yup.object().shape({
     .required("Password is required")
 });
 export const postContentSchema = Yup.object().shape({
-  postContent: Yup.string().required("Post content is required")
+  post: Yup.string().required("Post content is required")
 });

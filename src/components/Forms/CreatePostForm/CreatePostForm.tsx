@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { yupResolver } = require("@hookform/resolvers/yup");
 import { postContentSchema } from "../../../helpers/formSchemas";
-import { push, ref, onValue, DataSnapshot, get } from "firebase/database";
+import { push, ref, onValue, DataSnapshot } from "firebase/database";
 import { db } from "../../../../lib/firebase/firebase";
 import { AuthContext, ContextState } from "../../AuthContext/AuthContext";
-import { useContext } from "react";
-//state lub use effect
+import { useContext, useState } from "react";
+import { Input } from "../../Input/Input";
 
 interface PostContent {
-  postContent: string;
+  post: string;
 }
 
 export const CreatePostForm: React.FC = () => {
   const { user } = useContext(AuthContext) as ContextState;
+  const [postsArr, setPostsArr] = useState<PostContent[]>([]);
+
   function writeUserData(userId: string, post: string) {
     push(ref(db, "users/" + userId + "/posts"), {
       post,
@@ -31,53 +33,46 @@ export const CreatePostForm: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<PostContent> = async (data) => {
-    writeUserData(user!.uid, data.postContent);
+    writeUserData(user!.uid, data.post);
     reset();
   };
-  const refer: any = ref(db, "users/" + user!.uid + "/posts");
-  let data: Array<string> = [];
+  const refer = ref(db, "users/" + user!.uid + "/posts");
 
-  onValue(
-    refer,
-    (snapshot: DataSnapshot) => {
-      snapshot.forEach((childSnapshot) => {
-        const childData = childSnapshot.val();
-        data.push(childData.post);
-      });
-    },
-    (err) => {
-      console.log(err);
-    }
-  );
-
-  get(refer)
-    .then((snapshot: DataSnapshot) => {
-      if (snapshot.exists()) {
-        console.log(data);
+  useEffect(() => {
+    let posts: PostContent[] = [];
+    onValue(
+      refer,
+      (snapshot: DataSnapshot) => {
         snapshot.forEach((childSnapshot) => {
           const childData = childSnapshot.val();
-          data.push(childData.post);
+          posts.push(childData);
         });
-      } else {
-        console.log("No data available");
+        setPostsArr(posts);
+        posts = [];
+      },
+      (err) => {
+        console.log(err);
       }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    );
+  }, [onValue]);
 
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <div>
-          <label>Post Content</label>
-          <input type="text" {...register("postContent")} />
-          <div>{errors.postContent?.message}</div>
-        </div>
+        <Input
+          id="post"
+          type="text"
+          label="New Post"
+          error={errors.post}
+          {...register("post")}
+        />
         <button type="submit">Post</button>
       </form>
-      {data.map((post, index) => (
-        <p>{post}</p>
+
+      {postsArr.map((postSingle, index) => (
+        <div key={index}>
+          <p>{postSingle.post}</p>
+        </div>
       ))}
     </div>
   );
