@@ -1,9 +1,8 @@
-.inputDiv {
+.field {
   display: flex;
+  flex-flow: column-reverse;
+  margin-bottom: 1em;
 }
-.labelDiv {
-  width: 100%;
-}
-.inputHalfDiv {
+.input {
   width: 100%;
 }

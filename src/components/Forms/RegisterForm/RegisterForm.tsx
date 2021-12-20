@@ -1,21 +1,13 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { yupResolver } = require('@hookform/resolvers/yup')
+const { yupResolver } = require("@hookform/resolvers/yup");
 import { validationSchema } from "../../../helpers/formSchemas";
 import { auth, db } from "../../../../lib/firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, set } from "firebase/database";
-
-interface UserSubmitForm {
-  fullname: string;
-  email: string;
-  password: string;
-  date: Date;
-  acceptTerms: boolean;
-}
-
-
+import { MyInput } from "../../Input/MyInput";
+import styles from "./RegisterForm.module.css";
 
 export const RegisterForm: React.FC = () => {
   function writeUserData(
@@ -31,7 +23,7 @@ export const RegisterForm: React.FC = () => {
       email,
       date,
       terms,
-      posts
+      posts,
     });
   }
 
@@ -40,21 +32,25 @@ export const RegisterForm: React.FC = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<UserSubmitForm>({
+  } = useForm<Inputs>({
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit: SubmitHandler<UserSubmitForm> = async (data) => {
-    await createUserWithEmailAndPassword(auth, data.email, data.password)
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    await createUserWithEmailAndPassword(
+      auth,
+      data.emailLogin,
+      data.passwordLogin
+    )
       .then((cred) => {
         writeUserData(
           cred.user.uid,
           data.fullname,
-          data.email,
+          data.emailLogin,
           JSON.stringify(data.date),
           data.acceptTerms,
           []
-        )
+        );
         reset();
         const user = cred.user;
       })
@@ -66,37 +62,48 @@ export const RegisterForm: React.FC = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <div>
-          <label>Full Name</label>
-          <input type="text" {...register("fullname")} />
-          <div>{errors.fullname?.message}</div>
-        </div>
+        <MyInput
+          id="fullname"
+          type="text"
+          label="Full Name"
+          error={errors.fullname}
+          register={register}
+          placeholder="John Doe"
+        />
 
-        <div>
-          <label>Email</label>
-          <input type="text" {...register("email")} />
-          <div>{errors.email?.message}</div>
-        </div>
+        <MyInput
+          id="emailLogin"
+          type="email"
+          label="Email"
+          error={errors.emailLogin}
+          register={register}
+          placeholder="example@domain.com"
+        />
 
-        <div>
-          <label>Password</label>
-          <input type="password" {...register("password")} />
-          <div>{errors.password?.message}</div>
-        </div>
+        <MyInput
+          id="passwordLogin"
+          type="password"
+          label="Password"
+          error={errors.passwordLogin}
+          register={register}
+          placeholder="password123"
+        />
 
-        <div>
-          <label>Date of birth</label>
-          <input type="date" {...register("date")} />
-          <div>{errors.date?.message}</div>
-        </div>
+        <MyInput
+          id="date"
+          type="date"
+          label="Date of birth"
+          error={errors.date}
+          register={register}
+        />
 
-        <div>
-          <input type="checkbox" {...register("acceptTerms")} />
-          <label htmlFor="acceptTerms">
-            I have read and agree to the Terms
-          </label>
-          <div></div>
-        </div>
+        <MyInput
+          id="acceptTerms"
+          type="checkbox"
+          label="Accept terms"
+          error={errors.acceptTerms}
+          register={register}
+        />
 
         <div>
           <button type="submit">Register</button>

@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@auth0/nextjs-auth0": "^1.6.2",
     "@babel/core": "^7.16.5",
     "@emotion/cache": "latest",
     "@emotion/react": "latest",
@@ -35,6 +34,7 @@
     "react-hook-form": "^7.22.1",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.1.1",
+    "ts-node": "^10.4.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

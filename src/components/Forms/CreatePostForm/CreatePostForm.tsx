@@ -7,15 +7,12 @@ import { push, ref, onValue, DataSnapshot } from "firebase/database";
 import { db } from "../../../../lib/firebase/firebase";
 import { AuthContext, ContextState } from "../../AuthContext/AuthContext";
 import { useContext, useState } from "react";
-import { Input } from "../../Input/Input";
-
-interface PostContent {
-  post: string;
-}
+import { MyInput } from "../../Input/MyInput";
+import styles from "./CreatePost.module.css";
 
 export const CreatePostForm: React.FC = () => {
   const { user } = useContext(AuthContext) as ContextState;
-  const [postsArr, setPostsArr] = useState<PostContent[]>([]);
+  const [postsArr, setPostsArr] = useState<Inputs[]>([]);
 
   function writeUserData(userId: string, post: string) {
     push(ref(db, "users/" + userId + "/posts"), {
@@ -28,18 +25,18 @@ export const CreatePostForm: React.FC = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<PostContent>({
+  } = useForm<Inputs>({
     resolver: yupResolver(postContentSchema),
   });
 
-  const onSubmit: SubmitHandler<PostContent> = async (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     writeUserData(user!.uid, data.post);
     reset();
   };
   const refer = ref(db, "users/" + user!.uid + "/posts");
 
   useEffect(() => {
-    let posts: PostContent[] = [];
+    let posts: Inputs[] = [];
     onValue(
       refer,
       (snapshot: DataSnapshot) => {
@@ -57,14 +54,19 @@ export const CreatePostForm: React.FC = () => {
   }, [onValue]);
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <Input
+    <div className={styles.postForm}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+        className={styles.form}
+      >
+        <MyInput
           id="post"
           type="text"
-          label="New Post"
+          label="New post"
           error={errors.post}
-          {...register("post")}
+          register={register}
+          placeholder="Some text..."
         />
         <button type="submit">Post</button>
       </form>

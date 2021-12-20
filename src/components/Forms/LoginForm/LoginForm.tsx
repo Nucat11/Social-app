@@ -1,16 +1,11 @@
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { yupResolver } = require('@hookform/resolvers/yup')
+const { yupResolver } = require("@hookform/resolvers/yup");
 import { loginValidationSchema } from "../../../helpers/formSchemas";
 import { auth, db } from "../../../../lib/firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-
-
-interface UserLoginSubmitForm {
-  emailLogin: string;
-  passwordLogin: string;
-}
+import { MyInput } from "../../Input/MyInput";
 
 export const LoginForm: React.FC = () => {
   const {
@@ -18,11 +13,11 @@ export const LoginForm: React.FC = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<UserLoginSubmitForm>({
+  } = useForm<Inputs>({
     resolver: yupResolver(loginValidationSchema),
   });
 
-  const onSubmit: SubmitHandler<UserLoginSubmitForm> = async (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     await signInWithEmailAndPassword(auth, data.emailLogin, data.passwordLogin)
       .then((userCred) => {
         const user = userCred.user;
@@ -39,21 +34,25 @@ export const LoginForm: React.FC = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <div>
-          <label>Email</label>
-          <input type="text" {...register("emailLogin")} />
-          <div>{errors.emailLogin?.message}</div>
-        </div>
-
-        <div>
-          <label>Password</label>
-          <input type="password" {...register("passwordLogin")} />
-          <div>{errors.passwordLogin?.message}</div>
-        </div>
+        <MyInput
+          id="emailLogin"
+          type="email"
+          label="Email"
+          error={errors.emailLogin}
+          register={register}
+          placeholder="example@domain.com"
+        />
+        <MyInput
+          id="passwordLogin"
+          type="password"
+          label="Password"
+          error={errors.passwordLogin}
+          register={register}
+          placeholder="password123"
+        />
 
         <div>
           <button type="submit">Login</button>
-
         </div>
       </form>
     </div>
