@@ -9,6 +9,7 @@ import { AuthContext, ContextState } from "../../AuthContext/AuthContext";
 import { useContext, useState } from "react";
 import { MyInput } from "../../Input/MyInput";
 import styles from "./CreatePost.module.css";
+import CustomButton from "../../CustomButton/CustomButton";
 
 export const CreatePostForm: React.FC = () => {
   const { user } = useContext(AuthContext) as ContextState;
@@ -68,7 +69,7 @@ export const CreatePostForm: React.FC = () => {
           register={register}
           placeholder="Some text..."
         />
-        <button type="submit">Post</button>
+        <CustomButton type="submit"  border="" color="gray" height="20px" width="200px" >Post</CustomButton>
       </form>
 
       {postsArr.map((postSingle, index) => (

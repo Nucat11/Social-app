@@ -8,6 +8,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, set } from "firebase/database";
 import { MyInput } from "../../Input/MyInput";
 import styles from "./RegisterForm.module.css";
+import CustomButton from "../../CustomButton/CustomButton";
 
 export const RegisterForm: React.FC = () => {
   function writeUserData(
@@ -106,7 +107,7 @@ export const RegisterForm: React.FC = () => {
         />
 
         <div>
-          <button type="submit">Register</button>
+          <CustomButton type="submit" color="gray" width="100px" height="20px">Register</CustomButton>
         </div>
       </form>
     </div>

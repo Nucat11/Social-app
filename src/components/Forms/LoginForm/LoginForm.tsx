@@ -6,6 +6,7 @@ import { loginValidationSchema } from "../../../helpers/formSchemas";
 import { auth, db } from "../../../../lib/firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { MyInput } from "../../Input/MyInput";
+import CustomButton from "../../CustomButton/CustomButton";
 
 export const LoginForm: React.FC = () => {
   const {
@@ -52,7 +53,7 @@ export const LoginForm: React.FC = () => {
         />
 
         <div>
-          <button type="submit">Login</button>
+          <CustomButton type="submit" color="gray" width="150px" height="20px">Login</CustomButton>
         </div>
       </form>
     </div>
