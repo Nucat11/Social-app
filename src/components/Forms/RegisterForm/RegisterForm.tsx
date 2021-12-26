@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { yupResolver } = require("@hookform/resolvers/yup");
@@ -9,8 +9,11 @@ import { ref, set } from "firebase/database";
 import { MyInput } from "../../Input/MyInput";
 import styles from "./RegisterForm.module.css";
 import CustomButton from "../../CustomButton/CustomButton";
+import { LoRContext } from "../../LoginOrRegisterContext/LoRContext";
 
 export const RegisterForm: React.FC = () => {
+  const { active, setActive } = useContext(LoRContext);
+
   function writeUserData(
     userId: string,
     fullname: string,
@@ -61,7 +64,7 @@ export const RegisterForm: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className={styles.registerDiv}>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <MyInput
           id="fullname"
@@ -106,8 +109,31 @@ export const RegisterForm: React.FC = () => {
           register={register}
         />
 
-        <div>
-          <CustomButton type="submit" color="gray" width="100px" height="20px">Register</CustomButton>
+        <div className={styles.buttonDiv}>
+          <CustomButton
+            type="submit"
+            border="none"
+            color="#111344a9"
+            height="50px"
+            radius="40px"
+            width="40%"
+          >
+            Register
+          </CustomButton>
+          <p>OR</p>
+          <CustomButton
+            type="button"
+            onClick={() => {
+              setActive(!active);
+            }}
+            border="none"
+            color="#52154e"
+            height="50px"
+            radius="40px"
+            width="40%"
+          >
+            Sign in
+          </CustomButton>
         </div>
       </form>
     </div>

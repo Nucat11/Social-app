@@ -1,0 +1,16 @@
+.buttonDiv {
+    margin-top: 6%;
+    display: flex;
+    justify-content: center;
+    
+  
+  }
+  .loginDiv {
+    width: 40%;
+  }
+  .buttonDiv p {
+    line-height: 50px;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+  

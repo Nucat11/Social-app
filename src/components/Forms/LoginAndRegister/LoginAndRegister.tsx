@@ -1,57 +1,29 @@
-import styles from './LoginAndRegister.module.css'
+import styles from "./LoginAndRegister.module.css";
 import { LoginForm } from "../LoginForm/LoginForm";
 import { RegisterForm } from "../RegisterForm/RegisterForm";
-import { useState } from "react";
+import { useContext } from "react";
 import CustomButton from "../../CustomButton/CustomButton";
+import React from "react";
+import { LoRContext } from "../../LoginOrRegisterContext/LoRContext";
 
 export const LoginAndRegister = () => {
-  const [state, setState] = useState("register");
-  if (state === "register") {
+  const { active } = useContext(LoRContext);
+  if (active === true) {
     return (
       <div className={styles.container}>
         <p>It is free</p>
-        <h1>Create an account</h1>
+        <h1>
+          Create an account<span>.</span>
+        </h1>
         <RegisterForm />
-        <CustomButton
-          onClick={() => {
-            if (state === "register") {
-              setState("login");
-            } else {
-              setState("register");
-            }
-          }}
-          border="none"
-          color="gray"
-          height="20px"
-          radius="3px"
-          width="350px"
-        >
-          If you're already a user please sign in!
-        </CustomButton>
       </div>
     );
   } else {
     return (
-      <div>
-        <h1>Log in</h1>
+      <div className={styles.container}
+      ><p>If you are already a user</p>
+        <h1>Log in<span>.</span></h1>
         <LoginForm />
-
-        <CustomButton
-          onClick={() => {
-            if (state === "register") {
-              setState("login");
-            } else {
-              setState("register");
-            }
-          }}
-          border="none"
-          color="gray"
-          height="20px"
-          radius="3px"
-          width="350px"
-        >
-          If you don't have an account please register.
-        </CustomButton>
       </div>
     );
   }

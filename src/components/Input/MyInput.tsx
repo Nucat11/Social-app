@@ -9,11 +9,18 @@ interface Props {
   register: UseFormRegister<Inputs>;
   placeholder?: string;
 }
-export const MyInput = ({ error, label, id, register, placeholder, type }: Props) => {
+export const MyInput = ({
+  error,
+  label,
+  id,
+  register,
+  placeholder,
+  type,
+}: Props) => {
   return (
     <div className={styles.field}>
+      {error && <div className={styles.error}>{error.message}</div>}
       <input
-      
         id={id}
         type={type}
         {...register(id)}
@@ -21,7 +28,6 @@ export const MyInput = ({ error, label, id, register, placeholder, type }: Props
         className={styles.input}
       ></input>
       <label htmlFor={id}>{label}</label>
-      {error && <div>{error.message}</div>}
     </div>
   );
 };

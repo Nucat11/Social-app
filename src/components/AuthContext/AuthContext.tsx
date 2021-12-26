@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { auth } from "../../../lib/firebase/firebase";
 import { User as FirebaseUser } from "firebase/auth";
-import { getAuth } from "firebase/auth";
 
 
 

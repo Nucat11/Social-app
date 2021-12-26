@@ -1,5 +1,38 @@
-#acceptTerms {
-  width: 20px;
-  height: 20px;
+.buttonDiv {
+  display: flex;
+  justify-content: center;
+}
+.registerDiv {
+  width: 40%;
+}
+.buttonDiv p {
+  line-height: 50px;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+.registerDiv form :nth-child(1) input {
+  background: url("https://res.cloudinary.com/nucat/image/upload/v1640552728/id-card_wclrqr.png")
+    no-repeat right 20px center;
+  background-size: 3.5%;
 }
 
+.registerDiv form :nth-child(2) input {
+  background: url("https://res.cloudinary.com/nucat/image/upload/v1640552972/email_muvrxb.png")
+    no-repeat right 20px center;
+  background-size: 3.5%;
+}
+.registerDiv form :nth-child(3) input {
+  background: url("https://res.cloudinary.com/nucat/image/upload/v1640553112/padlock_mihwbn.png")
+    no-repeat right 20px center;
+  background-size: 3.5%;
+}
+.registerDiv form :nth-child(4) input {
+  background: url("https://res.cloudinary.com/nucat/image/upload/v1640553828/calendar_dbqwlc.png")
+    no-repeat right 20px center;
+  background-size: 3.5%;
+}
+
+
+.registerDiv input[type="date"]::-webkit-calendar-picker-indicator {
+   filter: opacity(0);
+}

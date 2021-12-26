@@ -7,14 +7,17 @@ import { ContextState } from "../AuthContext/AuthContext";
 import { Newsfeed } from "../NewsFeed/NewsFeed";
 import ThemeChanger from "../ThemeChanger/ThemeChanger";
 import styles from './HomeContent.module.css'
+import { LoRProvider } from "../LoginOrRegisterContext/LoRContext";
 
 const HomeContent: React.FC = () => {
   const { user } = useContext(AuthContext) as ContextState;
   return (
     <div className={styles.mainPage}>
+      <LoRProvider>
       {!user ? <LoginAndRegister />: <Newsfeed />}
       <ThemeChanger />
       <Copyright />
+      </LoRProvider>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { yupResolver } = require("@hookform/resolvers/yup");
@@ -7,8 +7,11 @@ import { auth, db } from "../../../../lib/firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { MyInput } from "../../Input/MyInput";
 import CustomButton from "../../CustomButton/CustomButton";
+import { LoRContext } from "../../LoginOrRegisterContext/LoRContext";
+import styles from './LoginForm.module.css'
 
 export const LoginForm: React.FC = () => {
+  const { active, setActive } = useContext(LoRContext);
   const {
     register,
     handleSubmit,
@@ -33,7 +36,7 @@ export const LoginForm: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className={styles.loginDiv}>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <MyInput
           id="emailLogin"
@@ -52,8 +55,31 @@ export const LoginForm: React.FC = () => {
           placeholder="password123"
         />
 
-        <div>
-          <CustomButton type="submit" color="gray" width="150px" height="20px">Login</CustomButton>
+        <div className={styles.buttonDiv}>
+          <CustomButton
+            type="submit"
+            border="none"
+            color="#111344a9"
+            height="50px"
+            radius="40px"
+            width="40%"
+          >
+            Login
+          </CustomButton>
+          <p>OR</p>
+          <CustomButton
+            type="button"
+            onClick={() => {
+              setActive(!active);
+            }}
+            border="none"
+            color="#52154e"
+            height="50px"
+            radius="40px"
+            width="40%"
+          >
+            Register
+          </CustomButton>
         </div>
       </form>
     </div>
