@@ -1,8 +1,10 @@
-import { Path, UseFormRegister } from "react-hook-form";
+import { ReactChild } from "react";
+import { FieldErrors, Path, UseFormRegister } from "react-hook-form";
 import styles from "./Input.module.css";
 
 interface Props {
-  error: any;
+  children?: ReactChild;
+  error: FieldErrors | undefined;
   type: string;
   label: string;
   id: Path<Inputs>;
@@ -16,6 +18,7 @@ export const MyInput = ({
   register,
   placeholder,
   type,
+  children
 }: Props) => {
   return (
     <div className={styles.field}>
@@ -28,6 +31,7 @@ export const MyInput = ({
         className={styles.input}
       ></input>
       <label htmlFor={id}>{label}</label>
+      {children}
     </div>
   );
 };

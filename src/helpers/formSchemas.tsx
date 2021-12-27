@@ -1,11 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { yupResolver } = require('@hookform/resolvers/yup')
+const { yupResolver } = require("@hookform/resolvers/yup");
 import * as Yup from "yup";
 
 export const validationSchema = Yup.object().shape({
   fullname: Yup.string().required("Fullname is required"),
 
-  emailLogin: Yup.string().required("Email is required").email("Email is invalid"),
+  emailLogin: Yup.string()
+    .required("Email is required")
+    .email("Email is invalid"),
   passwordLogin: Yup.string()
     .required("Password is required")
     .min(6, "Password must be at least 6 characters")
@@ -16,15 +18,17 @@ export const validationSchema = Yup.object().shape({
     .transform((curr, orig) => (orig === "" ? null : curr))
     .default(() => new Date(2000, 1, 1)),
 
-  acceptTerms: Yup.bool().required(
-    "The terms and conditions must be accepted."
-  ),
+  acceptTerms: Yup.boolean()
+    .required("The terms and conditions must be accepted.")
+    .default(false)
+    .oneOf([true], "You have to accept terms"),
 });
 export const loginValidationSchema = Yup.object().shape({
-  emailLogin: Yup.string().required("Email is required").email("Email is invalid"),
-  passwordLogin: Yup.string()
-    .required("Password is required")
+  emailLogin: Yup.string()
+    .required("Email is required")
+    .email("Email is invalid"),
+  passwordLogin: Yup.string().required("Password is required"),
 });
 export const postContentSchema = Yup.object().shape({
-  post: Yup.string().required("Post content is required")
+  post: Yup.string().required("Post content is required"),
 });

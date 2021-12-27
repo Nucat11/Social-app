@@ -1,38 +1,91 @@
 .buttonDiv {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .registerDiv {
   width: 40%;
 }
 .buttonDiv p {
-  line-height: 50px;
   margin-left: 2%;
   margin-right: 2%;
 }
 .registerDiv form :nth-child(1) input {
-  background: url("https://res.cloudinary.com/nucat/image/upload/v1640552728/id-card_wclrqr.png")
+  background: #e7ddda
+    url("https://res.cloudinary.com/nucat/image/upload/v1640552728/id-card_wclrqr.png")
     no-repeat right 20px center;
   background-size: 3.5%;
 }
 
 .registerDiv form :nth-child(2) input {
-  background: url("https://res.cloudinary.com/nucat/image/upload/v1640552972/email_muvrxb.png")
-    no-repeat right 20px center;
-  background-size: 3.5%;
-}
-.registerDiv form :nth-child(3) input {
-  background: url("https://res.cloudinary.com/nucat/image/upload/v1640553112/padlock_mihwbn.png")
+  background: #e7ddda
+    url("https://res.cloudinary.com/nucat/image/upload/v1640552972/email_muvrxb.png")
     no-repeat right 20px center;
   background-size: 3.5%;
 }
 .registerDiv form :nth-child(4) input {
-  background: url("https://res.cloudinary.com/nucat/image/upload/v1640553828/calendar_dbqwlc.png")
+  background: #e7ddda
+    url("https://res.cloudinary.com/nucat/image/upload/v1640553828/calendar_dbqwlc.png")
     no-repeat right 20px center;
   background-size: 3.5%;
 }
 
+.registerDiv form div :nth-child(1) input {
+  background: #e7ddda;
+}
+.registerDiv form :nth-child(n) input:focus {
+  background-color: #d7c6c1;
+}
 
 .registerDiv input[type="date"]::-webkit-calendar-picker-indicator {
-   filter: opacity(0);
+  filter: opacity(0);
+}
+
+.registerDiv i {
+  color: #111344;
+  margin-left: -44px;
+  margin-top: 44px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.registerDiv form :nth-child(5) {
+  display: block;
+}
+.registerDiv form :nth-child(5) input:focus,
+.registerDiv form :nth-child(5) input {
+  background: none !important;
+}
+
+.passwordDiv {
+  display: flex;
+}
+
+.registerDiv button:hover {
+  transition: 0.5s;
+  transform: scale(1.02);
+}
+.registerDiv button {
+  transition: 0.5s;
+}
+.buttonDiv :nth-child(3):hover {
+  -webkit-box-shadow: 0px 0px 20px 0px rgba(82, 21, 78, 1);
+  -moz-box-shadow: 0px 0px 20px 0px rgba(82, 21, 78, 1);
+  box-shadow: 0px 0px 20px 0px rgba(82, 21, 78, 1);
+}
+
+.buttonDiv :nth-child(1):hover {
+  -webkit-box-shadow: 0px 0px 20px 0px #111344a9;
+  -moz-box-shadow: 0px 0px 20px 0px #111344a9;
+  box-shadow: 0px 0px 20px 0px #111344a9;
+}
+
+/* Dark Theme */
+
+[data-theme="dark"] .registerDiv form :nth-child(n) input {
+  background-color: #a7adc6;
+}
+
+[data-theme="dark"] .registerDiv form :nth-child(n) input:focus {
+  background-color: #7781A6;
 }

@@ -1,16 +1,68 @@
 .buttonDiv {
-    margin-top: 6%;
-    display: flex;
-    justify-content: center;
-    
-  
-  }
-  .loginDiv {
-    width: 40%;
-  }
-  .buttonDiv p {
-    line-height: 50px;
-    margin-left: 2%;
-    margin-right: 2%;
-  }
-  
+  margin-top: 6%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loginDiv {
+  width: 40%;
+}
+.buttonDiv p {
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.loginDiv form :nth-child(1) input {
+  background: url("https://res.cloudinary.com/nucat/image/upload/v1640552972/email_muvrxb.png")
+    no-repeat right 20px center;
+  background-size: 3.5%;
+}
+.loginDiv form :nth-child(2) input {
+  background: none;
+}
+
+.passwordLoginDiv {
+  display: flex;
+}
+
+.loginDiv i {
+  color: #111344;
+  margin-left: -44px;
+  margin-top: 44px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.loginDiv button:hover {
+  transition: 0.5s;
+  transform: scale(1.02);
+}
+.loginDiv button {
+  transition: 0.5s;
+}
+.buttonDiv :nth-child(3):hover {
+  -webkit-box-shadow: 0px 0px 20px 0px rgba(82, 21, 78, 1);
+  -moz-box-shadow: 0px 0px 20px 0px rgba(82, 21, 78, 1);
+  box-shadow: 0px 0px 20px 0px rgba(82, 21, 78, 1);
+}
+
+.buttonDiv :nth-child(1):hover {
+  -webkit-box-shadow: 0px 0px 20px 0px #111344a9;
+  -moz-box-shadow: 0px 0px 20px 0px #111344a9;
+  box-shadow: 0px 0px 20px 0px #111344a9;
+}
+.loginDiv form :nth-child(n) input:focus {
+  background-color: #d7c6c1;
+}
+.loginDiv form :nth-child(n) input {
+  background-color: #e7ddda;
+}
+
+/* Dark Theme */
+
+[data-theme="dark"] .loginDiv form :nth-child(n) input {
+  background-color: #a7adc6;
+}
+[data-theme="dark"] .loginDiv form :nth-child(n) input:focus {
+  background-color: #7781a6;
+}

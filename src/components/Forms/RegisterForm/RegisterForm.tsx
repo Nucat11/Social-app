@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { yupResolver } = require("@hookform/resolvers/yup");
@@ -10,9 +10,17 @@ import { MyInput } from "../../Input/MyInput";
 import styles from "./RegisterForm.module.css";
 import CustomButton from "../../CustomButton/CustomButton";
 import { LoRContext } from "../../LoginOrRegisterContext/LoRContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+const eye = <FontAwesomeIcon icon={faEye} />;
 
 export const RegisterForm: React.FC = () => {
   const { active, setActive } = useContext(LoRContext);
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
 
   function writeUserData(
     userId: string,
@@ -84,14 +92,17 @@ export const RegisterForm: React.FC = () => {
           placeholder="example@domain.com"
         />
 
-        <MyInput
-          id="passwordLogin"
-          type="password"
-          label="Password"
-          error={errors.passwordLogin}
-          register={register}
-          placeholder="password123"
-        />
+        <div className={styles.passwordDiv}>
+          <MyInput
+            id="passwordLogin"
+            type={passwordShown ? "text" : "password"}
+            label="Password"
+            error={errors.passwordLogin}
+            register={register}
+            placeholder="password123"
+          />
+          <i onClick={togglePasswordVisibility}>{eye}</i>
+        </div>
 
         <MyInput
           id="date"

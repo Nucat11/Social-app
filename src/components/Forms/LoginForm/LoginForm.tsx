@@ -1,16 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { yupResolver } = require("@hookform/resolvers/yup");
 import { loginValidationSchema } from "../../../helpers/formSchemas";
-import { auth, db } from "../../../../lib/firebase/firebase";
+import { auth } from "../../../../lib/firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { MyInput } from "../../Input/MyInput";
 import CustomButton from "../../CustomButton/CustomButton";
 import { LoRContext } from "../../LoginOrRegisterContext/LoRContext";
-import styles from './LoginForm.module.css'
+import styles from "./LoginForm.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+const eye = <FontAwesomeIcon icon={faEye} />;
 
 export const LoginForm: React.FC = () => {
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
+
   const { active, setActive } = useContext(LoRContext);
   const {
     register,
@@ -46,14 +55,17 @@ export const LoginForm: React.FC = () => {
           register={register}
           placeholder="example@domain.com"
         />
-        <MyInput
-          id="passwordLogin"
-          type="password"
-          label="Password"
-          error={errors.passwordLogin}
-          register={register}
-          placeholder="password123"
-        />
+        <div className={styles.passwordLoginDiv}>
+          <MyInput
+            type={passwordShown ? "text" : "password"}
+            id="passwordLogin"
+            label="Password"
+            error={errors.passwordLogin}
+            register={register}
+            placeholder="password123"
+          />
+          <i onClick={togglePasswordVisibility}>{eye}</i>
+        </div>
 
         <div className={styles.buttonDiv}>
           <CustomButton
