@@ -10,10 +10,17 @@ import { useContext, useState } from "react";
 import { MyInput } from "../../Input/MyInput";
 import styles from "./CreatePost.module.css";
 import CustomButton from "../../CustomButton/CustomButton";
+import "react-quill/dist/quill.snow.css";
+import { modules } from "../../QuillEditor/Editor";
 
 export const CreatePostForm: React.FC = () => {
+  const ReactQuill =
+    typeof window === "object" ? require("react-quill") : () => false;
   const { user } = useContext(AuthContext) as ContextState;
   const [postsArr, setPostsArr] = useState<Inputs[]>([]);
+  const [fullNameVal, setFullNameVal] = useState("");
+  const [postVal, setPostVal] = useState() as any;
+  
 
   function writeUserData(userId: string, post: string) {
     push(ref(db, "users/" + userId + "/posts"), {
@@ -21,20 +28,14 @@ export const CreatePostForm: React.FC = () => {
     });
   }
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<Inputs>({
-    resolver: yupResolver(postContentSchema),
-  });
+  const onSubmit: SubmitHandler<Inputs> = async (event) => {
+    event.preventDefault();
+    writeUserData(user!.uid, postVal.data);
+    document.querySelector(".ql-editor")!.innerHTML = "";
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    writeUserData(user!.uid, data.post);
-    reset();
   };
   const refer = ref(db, "users/" + user!.uid + "/posts");
+  const fullName = ref(db, "users/" + user!.uid + "/fullname");
 
   useEffect(() => {
     let posts: Inputs[] = [];
@@ -52,29 +53,45 @@ export const CreatePostForm: React.FC = () => {
         console.log(err);
       }
     );
+    onValue(
+      fullName,
+      (snapshot: DataSnapshot) => {
+        setFullNameVal(snapshot.val());
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }, [onValue]);
+
+  const handleChange = (data: any) => {
+    setPostVal({ data });
+  };
 
   return (
     <div className={styles.postForm}>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-        className={styles.form}
-      >
-        <MyInput
+      <form onSubmit={onSubmit} noValidate className={styles.form}>
+        <ReactQuill
+          modules={modules}
+          onChange={handleChange}
           id="post"
-          type="text"
-          label="New post"
-          error={errors.post}
-          register={register}
-          placeholder="Some text..."
-        />
-        <CustomButton type="submit"  border="" color="gray" height="20px" width="200px" >Post</CustomButton>
+          placeholder={"What are you thinking right now?"}
+        ></ReactQuill>
+        <CustomButton
+          type="submit"
+          border=""
+          color="gray"
+          height="20px"
+          width="200px"
+        >
+          Post
+        </CustomButton>
       </form>
 
       {postsArr.map((postSingle, index) => (
-        <div key={index}>
-          <p>{postSingle.post}</p>
+        <div key={index} className={styles.singlePost}>
+          <h4>{fullNameVal}</h4>
+          <div dangerouslySetInnerHTML={{ __html: postSingle.post }}></div>
         </div>
       ))}
     </div>

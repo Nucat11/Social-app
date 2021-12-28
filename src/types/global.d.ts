@@ -5,5 +5,5 @@ interface Inputs {
   fullname: string;
   date: Date;
   acceptTerms: boolean;
-  
+  preventDefault: function;
 }
