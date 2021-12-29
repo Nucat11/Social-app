@@ -14,7 +14,7 @@ input {
 
 input {
   font-size: 1.5em;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   font-family: inherit;
   -webkit-appearance: none;
   border-radius: 0;
@@ -92,3 +92,25 @@ input[type="checkbox"]:checked:after {
   top: 2px;
   left: 6px;
 }
+.popup-content {
+  margin: auto;
+  background: rgb(255, 255, 255);
+  padding: 5px;
+  width: 550px;
+  padding: 1%;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.747) 0px 0px 5px;
+}
+.popup-arrow {
+  color: transparent;
+}
+
+
+.popup-overlay {
+  background: rgba(199, 197, 197, 0.76);
+}
+.ql-editor {
+  min-height: 200px;
+  max-height: 600px;
+}
+

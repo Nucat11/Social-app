@@ -6,4 +6,5 @@ interface Inputs {
   date: Date;
   acceptTerms: boolean;
   preventDefault: function;
+  id: string;
 }

@@ -10,6 +10,7 @@ interface Props {
   radius?: string
   width: string;
   type?: "button" | "submit" | "reset";
+
 }
 
 const CustomButton: React.FC<Props> = ({ 
@@ -20,7 +21,8 @@ const CustomButton: React.FC<Props> = ({
     onClick, 
     radius,
     width,
-    type
+    type,
+
   }) => { 
   return (
     <button
@@ -34,6 +36,7 @@ const CustomButton: React.FC<Props> = ({
          height,
          width
       }}
+
     >
     {children}
     </button>
