@@ -1,6 +1,6 @@
 import { getAuth, signOut } from "firebase/auth";
 import { auth } from "../../lib/firebase/firebase";
-import CustomButton from "./CustomButton/CustomButton";
+import CustomButton from "./ReusableComponents/CustomButton/CustomButton";
 
 const SignOut = () => {
   signOut(auth)

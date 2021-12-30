@@ -20,13 +20,18 @@
   box-shadow: 0 0px 0px 1px #52154e;
 }
 
-.singlePost h4 {
-  font-family: 'Proza Libre', sans-serif;
+.singlePost h4,
+.singlePost .date {
+  font-family: "Proza Libre", sans-serif;
   font-size: 12px;
   color: rgba(0, 0, 0, 0.432);
 }
-.singlePost p{
-  font-family: 'Proza Libre', sans-serif;
+.date {
+  margin-top: -15px;
+  font-weight: 600;
+}
+.singlePost p {
+  font-family: "Proza Libre", sans-serif;
   font-size: 17px;
   color: black;
 }
@@ -43,21 +48,25 @@
   font-size: 20px;
   font-family: "Nunito", sans-serif;
   transition: 0.2s;
-
 }
 .popupDiv button:hover {
-  background-color: #d7c6c1!important;
+  background-color: #d7c6c1 !important;
   transition: 0.2s;
 }
 .popupDiv {
-    background-color: #e7ddda;
-    height: 100px;
-    width: 600px;
-    display: flex;
-    align-items: center;
-    border-radius: 20px;
-    padding: 20px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    box-shadow: 0 0px 0px 1px #52154e;
+  background-color: #e7ddda;
+  height: 100px;
+  width: 600px;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 0px 0px 1px #52154e;
+}
+.postHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

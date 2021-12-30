@@ -1,0 +1,11 @@
+.commentForm input {
+  all: unset;
+  width: 200px;
+  height: 30px;
+  background-color: white;
+}
+.commentForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}

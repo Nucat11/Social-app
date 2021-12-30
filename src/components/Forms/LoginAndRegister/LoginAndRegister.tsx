@@ -2,7 +2,7 @@ import styles from "./LoginAndRegister.module.css";
 import { LoginForm } from "../LoginForm/LoginForm";
 import { RegisterForm } from "../RegisterForm/RegisterForm";
 import { useContext } from "react";
-import CustomButton from "../../CustomButton/CustomButton";
+import CustomButton from "../../ReusableComponents/CustomButton/CustomButton";
 import React from "react";
 import { LoRContext } from "../../LoginOrRegisterContext/LoRContext";
 

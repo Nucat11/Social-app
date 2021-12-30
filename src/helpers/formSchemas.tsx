@@ -29,6 +29,6 @@ export const loginValidationSchema = Yup.object().shape({
     .email("Email is invalid"),
   passwordLogin: Yup.string().required("Password is required"),
 });
-export const postContentSchema = Yup.object().shape({
-  post: Yup.string().required("Post content is required"),
+export const commentsSchema = Yup.object().shape({
+  comment: Yup.string().required("Comment content is required"),
 });

@@ -1,4 +1,5 @@
 import React from "react";
+import { Path } from "react-hook-form";
 import styles from'./CustomButton.module.css'
 
 interface Props {
@@ -10,6 +11,8 @@ interface Props {
   radius?: string
   width: string;
   type?: "button" | "submit" | "reset";
+  id?: Path<Inputs>
+
 
 }
 
@@ -22,10 +25,13 @@ const CustomButton: React.FC<Props> = ({
     radius,
     width,
     type,
+    id,
+    
 
   }) => { 
   return (
     <button
+      id={id}
       type={type}
       className={styles.customButton} 
       onClick={onClick}
