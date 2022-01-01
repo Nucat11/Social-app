@@ -78,7 +78,6 @@ export const CommentForm = ({ postSingle, user }: Props) => {
       }
     );
   }, [onValue]);
-  console.log(commentsArr)
 
   return (
     <div>

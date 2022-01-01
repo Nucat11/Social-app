@@ -7,10 +7,8 @@ import { useContext, useState } from "react";
 import styles from "./CreatePost.module.css";
 import CustomButton from "../../ReusableComponents/CustomButton/CustomButton";
 import "react-quill/dist/quill.snow.css";
-import { Dropdown } from "../../ReusableComponents/Dropdown/Dropdown";
 import { PopupEditor } from "../../ReusableComponents/PopupEditor/PopupEditor";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { CommentForm } from "../CommentForm/CommentForm";
+import { SinglePost } from "../../ReusableComponents/SinglePost/SinglePost";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { yupResolver } = require("@hookform/resolvers/yup");
 interface PostValue {
@@ -121,17 +119,7 @@ export const CreatePostForm: React.FC = () => {
       />
 
       {postsArr.map((postSingle) => (
-        <div key={postSingle.id} className={styles.singlePost}>
-          <div className={styles.postHead}>
-            <div>
-              <h4>{fullNameVal}</h4>
-              <p className={styles.date}>{postSingle.date}</p>
-            </div>
-            <Dropdown user={user!.uid} postId={postSingle.id} />
-          </div>
-          <div dangerouslySetInnerHTML={{ __html: postSingle.post }}></div>
-          <CommentForm postSingle={postSingle} user={user!.uid}/>
-        </div>
+        <SinglePost key={postSingle.id} postSingle={postSingle} fullNameVal={fullNameVal} user={user!.uid}/>
       ))}
     </div>
   );

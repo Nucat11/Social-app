@@ -9,3 +9,11 @@ interface Inputs {
   id: string | any;
   comment: string;
 }
+interface Post {
+  comments: {
+    comment: string;
+    fullname: string;
+  }
+  date: string;
+  post: string;
+}
