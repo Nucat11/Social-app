@@ -32,3 +32,16 @@ export const loginValidationSchema = Yup.object().shape({
 export const commentsSchema = Yup.object().shape({
   comment: Yup.string().required("Comment content is required"),
 });
+export const avatarValidationSchema = Yup.object().shape({
+  avatar: Yup.mixed()
+  .test(
+    "type",
+    "We only support jpeg",
+    (value) => !value || (value && value[0].type === "image/jpeg")
+    )
+    .test(
+      "size",
+      "Max size 10MB",
+      (value) => !value || (value && value[0].size < 10000000)
+    )
+});

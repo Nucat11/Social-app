@@ -8,6 +8,7 @@ interface Inputs {
   preventDefault: function;
   id: string | any;
   comment: string;
+  avatar: File;
 }
 interface Post {
   comments: {

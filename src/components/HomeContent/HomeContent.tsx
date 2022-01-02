@@ -11,6 +11,7 @@ import { LoRProvider } from "../LoginOrRegisterContext/LoRContext";
 
 const HomeContent: React.FC = () => {
   const { user } = useContext(AuthContext) as ContextState;
+  
   return (
     <>
       <div>
