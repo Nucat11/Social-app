@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { storage } from "../../../../lib/firebase/firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL, list } from "firebase/storage";
 import { AuthContext, ContextState } from "../../AuthContext/AuthContext";
 import { useForm } from "react-hook-form";
 import { avatarValidationSchema } from "../../../helpers/formSchemas";
@@ -23,20 +23,19 @@ export const FileDropUpload = () => {
   } = useForm<Inputs>({
     resolver: yupResolver(avatarValidationSchema),
   });
-  const storageRef = ref(storage, "images/" + user!.uid + `/avatar`);
-
+  const storageRef = ref(storage, "images/" + user!.uid + "/avatar");
+  const storageRefParent = ref(storage, "images/" + user!.uid );
   const handleChange = (e: any) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
       const preview = URL.createObjectURL(e.target.files[0]);
       document
-      .querySelector(".FileDropUpload_avatarDiv__O2q_f label img")!
-      .setAttribute("src", preview);
+        .querySelector(".FileDropUpload_avatarDiv__O2q_f label img")!
+        .setAttribute("src", preview);
     }
   };
 
   const handleUpload = () => {
-    
     if (image) {
       const uploadTask = uploadBytesResumable(storageRef, image!, metadata);
       uploadTask.on(
@@ -75,18 +74,27 @@ export const FileDropUpload = () => {
           setImage(undefined);
         }
       );
-    } else if(!image){
+    } else if (!image) {
       setError("File required");
     }
   };
   useEffect(() => {
-    getDownloadURL(storageRef).then((downloadURL) => {
-      document
-        .querySelector(".FileDropUpload_avatarDiv__O2q_f label img")!
-        .setAttribute("src", downloadURL);
-    });
+    list(storageRefParent).then((res) => {
+      if(res.items.length != 0) {
+        getDownloadURL(storageRef)
+          .then((downloadURL) => {
+            document
+              .querySelector(".FileDropUpload_avatarDiv__O2q_f label img")!
+              .setAttribute("src", downloadURL);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
 
-  }, [])
+    })
+
+  }, []);
 
   useEffect(() => {
     setError(undefined);
@@ -103,10 +111,10 @@ export const FileDropUpload = () => {
           id="avatar"
           {...register("avatar")}
           onChange={handleChange}
-          ></input>
+        ></input>
         <button>Upload</button>
-          {errors.avatar && <div>{errors.avatar.message}</div>}
-          {error && <div>{error}</div>}
+        {errors.avatar && <div>{errors.avatar.message}</div>}
+        {error && <div>{error}</div>}
       </form>
     </div>
   );
