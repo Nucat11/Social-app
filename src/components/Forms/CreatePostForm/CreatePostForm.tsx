@@ -31,7 +31,6 @@ function writeUserData(userId: string, post: string) {
   });
 }
 
-
 export const CreatePostForm: React.FC = () => {
   const { user } = useContext(AuthContext) as ContextState;
   const [postsArr, setPostsArr] = useState<Inputs[]>([]);
@@ -93,7 +92,6 @@ export const CreatePostForm: React.FC = () => {
     }
   };
 
-
   return (
     <div className={styles.postForm}>
       <div className={styles.popupDiv}>
@@ -119,7 +117,12 @@ export const CreatePostForm: React.FC = () => {
       />
 
       {postsArr.map((postSingle) => (
-        <SinglePost key={postSingle.id} postSingle={postSingle} fullNameVal={fullNameVal} user={user!.uid}/>
+        <SinglePost
+          key={postSingle.id}
+          postSingle={postSingle}
+          fullNameVal={fullNameVal}
+          user={user!.uid}
+        />
       ))}
     </div>
   );

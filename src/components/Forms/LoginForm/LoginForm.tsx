@@ -7,7 +7,7 @@ import { auth } from "../../../../lib/firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { MyInput } from "../../ReusableComponents/Input/MyInput";
 import CustomButton from "../../ReusableComponents/CustomButton/CustomButton";
-import { LoRContext } from "../../LoginOrRegisterContext/LoRContext";
+import { LoRContext } from "../../HomeContent/LoginOrRegisterContext/LoRContext";
 import styles from "./LoginForm.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";

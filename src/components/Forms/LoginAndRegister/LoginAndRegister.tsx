@@ -4,7 +4,7 @@ import { RegisterForm } from "../RegisterForm/RegisterForm";
 import { useContext } from "react";
 import CustomButton from "../../ReusableComponents/CustomButton/CustomButton";
 import React from "react";
-import { LoRContext } from "../../LoginOrRegisterContext/LoRContext";
+import { LoRContext } from "../../HomeContent/LoginOrRegisterContext/LoRContext";
 
 export const LoginAndRegister = () => {
   const { active } = useContext(LoRContext);

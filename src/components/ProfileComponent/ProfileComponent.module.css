@@ -1,8 +1,17 @@
 .profileDiv {
-    padding-top: 100px;
+  padding-top: 100px;
 }
 .profileHeader {
-    display: flex;
-    align-items: center;
-    justify-content: center;   
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.profileDiv hr {
+  width: 70%;
+  margin-top: 35px;
+}
+.divWithButtons {
+  display: flex;
+  justify-content: center;
 }

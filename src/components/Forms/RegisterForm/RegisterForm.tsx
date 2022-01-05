@@ -9,7 +9,7 @@ import { ref, set } from "firebase/database";
 import { MyInput } from "../../ReusableComponents/Input/MyInput";
 import styles from "./RegisterForm.module.css";
 import CustomButton from "../../ReusableComponents/CustomButton/CustomButton";
-import { LoRContext } from "../../LoginOrRegisterContext/LoRContext";
+import { LoRContext } from "../../HomeContent/LoginOrRegisterContext/LoRContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 const eye = <FontAwesomeIcon icon={faEye} />;
