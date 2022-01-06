@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rambla:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rambla:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 html,
 body {
   width: 100%;
@@ -92,7 +92,8 @@ input[type="checkbox"]:checked:after {
   top: 2px;
   left: 6px;
 }
-.popup-content {
+
+.myPopup-content {
   margin: auto;
   background: rgb(255, 255, 255);
   padding: 5px;
@@ -101,14 +102,29 @@ input[type="checkbox"]:checked:after {
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.747) 0px 0px 5px;
 }
-.popup-arrow {
+.myPopup-arrow {
   color: transparent;
 }
 
-
-.popup-overlay {
+.myPopup-overlay {
   background: rgba(199, 197, 197, 0.76);
 }
+.searchDropdown-content {
+  position: absolute !important;
+  margin: 0;
+  background: rgb(255, 255, 255);
+  padding: 5px;
+  width: 350px;
+  padding: 1%;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.747) 0px 0px 5px;
+  margin-top: -8px;
+  min-height: 400px;
+}
+.searchDropdown-arrow {
+  color: transparent;
+}
+
 .ql-editor {
   min-height: 200px;
   max-height: 600px;

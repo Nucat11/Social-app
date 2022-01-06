@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { storage } from "../../../../lib/firebase/firebase";
+import { db, storage } from "../../../../lib/firebase/firebase";
 import { ref, uploadBytesResumable, getDownloadURL, list } from "firebase/storage";
 import { AuthContext, ContextState } from "../../AuthContext/AuthContext";
 import { useForm } from "react-hook-form";
@@ -7,6 +7,7 @@ import { avatarValidationSchema } from "../../../helpers/formSchemas";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { yupResolver } = require("@hookform/resolvers/yup");
 import styles from "./FileDropUpload.module.css";
+import { update, ref as realtimeRef } from "firebase/database";
 const metadata = {
   contentType: "image/jpeg",
 };
@@ -86,6 +87,7 @@ export const FileDropUpload = () => {
             document
               .querySelector(".FileDropUpload_avatarDiv__O2q_f label img")!
               .setAttribute("src", downloadURL);
+              update(realtimeRef(db, "users/" + user!.uid), {avatar: downloadURL})
           })
           .catch((error) => {
             console.log(error);
