@@ -1,10 +1,19 @@
-import { DataSnapshot, onValue, push, ref, update } from "firebase/database";
-import { useEffect, useState } from "react";
+import {
+  child,
+  DataSnapshot,
+  onValue,
+  push,
+  ref,
+  update,
+} from "firebase/database";
+import { useContext, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { db } from "../../../../lib/firebase/firebase";
 import { commentsSchema } from "../../../helpers/formSchemas";
+import { AuthContext, ContextState } from "../../AuthContext/AuthContext";
 import CustomButton from "../../ReusableComponents/CustomButton/CustomButton";
 import { MyInput } from "../../ReusableComponents/Input/MyInput";
+import { CommentDropdown } from "./CommentDropdown/CommentDropdown";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { yupResolver } = require("@hookform/resolvers/yup");
 import styles from "./CommentForm.module.css";
@@ -13,24 +22,27 @@ interface Props {
     id: string;
   };
 
-  user: string;
+  userId: string;
 }
 
 function writePostComment(
   userId: string,
   comment: string,
   postId: string,
-  fullname: string
+  fullname: string,
+  id: string
 ) {
   push(ref(db, "users/" + userId + "/posts/" + postId + "/comments"), {
     fullname,
     comment,
+    id,
   });
 }
 
-export const CommentForm = ({ postSingle, user }: Props) => {
+export const CommentForm = ({ postSingle, userId }: Props) => {
   const [commentsArr, setCommentsArr] = useState<Inputs[]>([]);
   const [fullNameVal, setFullNameVal] = useState("");
+  const { user } = useContext(AuthContext) as ContextState;
   const {
     register,
     handleSubmit,
@@ -40,15 +52,22 @@ export const CommentForm = ({ postSingle, user }: Props) => {
     resolver: yupResolver(commentsSchema),
   });
 
+
   const postComment: SubmitHandler<Inputs> = (data) => {
-    writePostComment(user, data.comment, postSingle.id, fullNameVal);
+    writePostComment(
+      userId,
+      data.comment,
+      postSingle.id,
+      fullNameVal,
+      user!.uid
+    );
     reset();
   };
   const refer = ref(
     db,
-    "users/" + user + "/posts/" + postSingle.id + "/comments"
+    "users/" + userId + "/posts/" + postSingle.id + "/comments"
   );
-  const fullName = ref(db, "users/" + user + "/fullname");
+  const fullName = ref(db, "users/" + user!.uid + "/fullname");
 
   useEffect(() => {
     let comments: Inputs[] = [];
@@ -58,7 +77,7 @@ export const CommentForm = ({ postSingle, user }: Props) => {
         snapshot.forEach((childSnapshot) => {
           const postID = childSnapshot.key;
           const childData = childSnapshot.val();
-          childData.id = postID;
+          childData.parentID = postID;
           comments.push(childData);
         });
         setCommentsArr(comments);
@@ -103,9 +122,18 @@ export const CommentForm = ({ postSingle, user }: Props) => {
         />
       </form>
       {commentsArr.map((commentSingle) => (
-        <div key={commentSingle.id}>
-          <h2>{commentSingle.fullname}</h2>
-          <p>{commentSingle.comment}</p>
+        <div key={commentSingle.parentID} className={styles.comment}>
+          <div>
+            <h2>{commentSingle.fullname}</h2>
+              <p>{commentSingle.comment}</p>
+          </div>
+          {commentSingle.id === user!.uid && (
+            <CommentDropdown
+              postID={postSingle.id}
+              commentID={commentSingle.parentID}
+              user={userId}
+            />
+          )}
         </div>
       ))}
     </div>

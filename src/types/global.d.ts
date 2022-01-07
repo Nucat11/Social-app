@@ -9,6 +9,7 @@ interface Inputs {
   id: string | any;
   comment: string;
   avatar: File;
+  parentID: string;
 }
 interface Post {
   comments: {

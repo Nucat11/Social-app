@@ -29,8 +29,11 @@ interface SearchResults {
   id: string | null;
   avatar?: string;
 }
+interface Props {
+  user: string;
+}
 
-export const Search: React.FC = () => {
+export const Search = ({ user }: Props) => {
   const [value, setValue] = useState("~");
   const [searchArr, setSearchArr] = useState<SearchResults[]>([]);
   const [open, setOpen] = useState(false);
@@ -76,7 +79,7 @@ export const Search: React.FC = () => {
   }, [value]);
 
   return (
-    <div >
+    <div>
       <button
         type="button"
         className="button"
@@ -84,10 +87,36 @@ export const Search: React.FC = () => {
       >
         Open Modal
       </button>
-      <Popup className="searchDropdown" open={open} closeOnDocumentClick onClose={closeModal} position="right center">
-          <div className="content">
-            <input onChange={handleChange}></input>
-            {searchArr.map((searchResult) => {
+      <Popup
+        className="searchDropdown"
+        open={open}
+        closeOnDocumentClick
+        onClose={closeModal}
+        position="right center"
+      >
+        <div className="content">
+          <input onChange={handleChange}></input>
+          {searchArr.map((searchResult) => {
+            if (searchResult.id === user) {
+              return (
+                <Link href="/profile" key={searchResult.id}>
+                  <a
+                    className={styles.searchNames}
+                    onClick={() => setOpen(false)}
+                  >
+                    <img
+                      src={
+                        searchResult.avatar
+                          ? searchResult.avatar
+                          : "https://res.cloudinary.com/nucat/image/upload/v1641135095/wallpaper-for-facebook-profile-photo_bh9nxd.jpg"
+                      }
+                      className={styles.avatar}
+                    ></img>
+                    <p>{searchResult.fullname}</p>
+                  </a>
+                </Link>
+              );
+            } else {
               return (
                 <Link href={`/user/${searchResult.id}`} key={searchResult.id}>
                   <a
@@ -106,9 +135,10 @@ export const Search: React.FC = () => {
                   </a>
                 </Link>
               );
-            })}
-          </div>
-          <div className="actions"></div>
+            }
+          })}
+        </div>
+        <div className="actions"></div>
       </Popup>
       <div className={styles.navbarItem}></div>
     </div>

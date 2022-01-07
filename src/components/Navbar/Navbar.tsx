@@ -10,6 +10,6 @@ export const Navbar: React.FC = () => {
     return (<>{user ? <div className={styles.navbar}>
         <SignOutButton/>
         <Link href="/profile">Profile</Link>
-        <Search/>
+        <Search user={user.uid}/>
     </div> : <></>}</>)
 }

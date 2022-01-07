@@ -8,7 +8,7 @@ const Profile: NextPage = () => {
   const { user } = React.useContext(AuthContext) as ContextState;
 
   if(user) {
-    return <ProfileComponent/>
+    return <ProfileComponent userID={user.uid}/>
   }
   else {
     return <div></div>

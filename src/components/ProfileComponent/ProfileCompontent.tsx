@@ -7,32 +7,86 @@ import { CreatePostForm } from "../Forms/CreatePostForm/CreatePostForm";
 import { FileDropUpload } from "../ReusableComponents/FileDropUpload/FileDropUpload";
 import CustomButton from "../ReusableComponents/CustomButton/CustomButton";
 import { Information } from "./Information/Information";
+import { CreatePostPopup } from "./CreatePostPopup/CreatePostPopup";
 
-export const ProfileComponent: React.FC = () => {
+interface Props {
+  userID: string;
+}
+
+export const ProfileComponent = ({ userID }: Props) => {
   const { user } = useContext(AuthContext) as ContextState;
   const [fullname, setFullname] = useState("");
-  const refer = ref(db, "users/" + user!.uid);
+  const refer = ref(db, "users/" + userID);
   const [profileSettingsType, setProfileSettingsType] = useState("posts");
+  const [img, setImg] = useState("");
 
   get(refer).then((snapshot) => {
     setFullname(snapshot.val().fullname);
   });
+  get(refer).then((snapshot) => {
+    setImg(snapshot.val().avatar);
+  });
 
-  const renderSwitch = (param: any) => {
+  const renderSwitch = (param: string) => {
     switch (param) {
       case "posts":
-        return <CreatePostForm />;
+        return (
+          <div className={styles.postForm}>
+            {user!.uid === userID && (
+              <div>
+                <CreatePostPopup />
+                <CreatePostForm userID={user!.uid} />
+              </div>
+            )}
+            {user!.uid !== userID && (
+              <div>
+                <CreatePostForm userID={userID} />
+              </div>
+            )}
+          </div>
+        );
       case "information":
-        return <Information/>;
+        return <Information />;
       default:
-        return <CreatePostForm />;
+        return (
+          <div className={styles.postForm}>
+            {user!.uid === userID && (
+              <div>
+                <CreatePostPopup />
+                <CreatePostForm userID={user!.uid} />
+              </div>
+            )}
+            {user!.uid !== userID && (
+              <div>
+                <CreatePostForm userID={userID} />
+              </div>
+            )}
+          </div>
+        );
     }
   };
+
+  function fileUpload() {
+    if (user!.uid === userID) {
+      return <FileDropUpload />;
+    } else {
+      return (
+        <img
+          src={
+            img
+              ? img
+              : "https://res.cloudinary.com/nucat/image/upload/v1641135095/wallpaper-for-facebook-profile-photo_bh9nxd.jpg"
+          }
+          className={styles.avatar}
+        ></img>
+      );
+    }
+  }
 
   return (
     <div className={styles.profileDiv}>
       <div className={styles.profileHeader}>
-        <FileDropUpload />
+        {fileUpload()}
         <h1>{fullname}</h1>
       </div>
       <hr />
