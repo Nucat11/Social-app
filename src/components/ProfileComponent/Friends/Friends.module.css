@@ -1,0 +1,10 @@
+.followActive {
+    background-color: black;
+    transition: .5s;
+    color: white;
+  }
+  .followDisabled {
+    background-color: blue;
+    transition: .5s;
+    color: white;
+  }

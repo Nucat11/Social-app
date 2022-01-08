@@ -14,7 +14,6 @@ interface Props {
 }
 
 export const CreatePostForm = ({ userID }: Props) => {
-  const { user } = useContext(AuthContext) as ContextState;
   const [postsArr, setPostsArr] = useState<Inputs[]>([]);
   const [fullNameVal, setFullNameVal] = useState("");
   const refer = ref(db, "users/" + userID + "/posts");
@@ -22,6 +21,7 @@ export const CreatePostForm = ({ userID }: Props) => {
 
   useEffect(() => {
     let posts: Inputs[] = [];
+    
     onValue(
       refer,
       (snapshot: DataSnapshot) => {
@@ -47,7 +47,7 @@ export const CreatePostForm = ({ userID }: Props) => {
         console.log(err);
       }
     );
-  }, [onValue]);
+  }, [userID]);
 
   return (
     <div className={styles.postForm}>

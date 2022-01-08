@@ -1,9 +1,10 @@
 import { ref, remove, update } from "firebase/database";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import Popup from "reactjs-popup";
 import { db } from "../../../../../lib/firebase/firebase";
 import { commentsSchema } from "../../../../helpers/formSchemas";
+import { AuthContext, ContextState } from "../../../AuthContext/AuthContext";
 import styles from "./CommentDropdown.module.css";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { yupResolver } = require("@hookform/resolvers/yup");
@@ -17,7 +18,8 @@ function updateUserData(
   userId: string,
   post: string,
   comment: string,
-  commentVal: string
+  commentVal: string,
+
 ) {
   update(
     ref(db, "users/" + userId + "/posts/" + post + "/comments/" + comment),
@@ -27,12 +29,14 @@ function updateUserData(
 interface Props {
   postID: string;
   commentID: string;
-  user: string;
+  userID: string;
+  commentCreatorID:string
 }
-export const CommentDropdown = ({ postID, commentID, user }: Props) => {
+export const CommentDropdown = ({ postID, commentID, userID, commentCreatorID }: Props) => {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState(false);
   const wrapperRef = useRef(null);
+  const { user } = useContext(AuthContext) as ContextState;
   useOutsideAlerter(wrapperRef);
   const {
     register,
@@ -57,11 +61,11 @@ export const CommentDropdown = ({ postID, commentID, user }: Props) => {
   }
   const onSubmit = (data:any) => {
     setInput(false);
-    updateUserData(user, postID,commentID, data.comment);
+    updateUserData(userID, postID,commentID, data.comment);
   };
 
   function onClickDelete() {
-    deleteUserData(user, postID, commentID);
+    deleteUserData(userID, postID, commentID);
   }
   function onClickEdit() {
     setOpen(false);
@@ -80,7 +84,7 @@ export const CommentDropdown = ({ postID, commentID, user }: Props) => {
         {open && (
           <div className={styles.dropdownMenu}>
             <button onClick={onClickDelete}> Usuń post </button>
-            <button onClick={onClickEdit}> Edytuj post </button>
+            {commentCreatorID === user!.uid  && <button onClick={onClickEdit}> Edytuj post </button>}
           </div>
         )}
       </div>

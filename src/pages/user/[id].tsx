@@ -7,19 +7,16 @@ import {
 } from "../../components/AuthContext/AuthContext";
 
 const userProfile = () => {
-  
   const { user } = React.useContext(AuthContext) as ContextState;
   const router = useRouter();
   let { id } = router.query;
 
   if (user && id) {
-    id = id!.toString()
+    id = id!.toString();
     return <ProfileComponent userID={id} />;
   } else {
-    return <div></div>;
+    return <div>k</div>;
   }
-  
 };
-
 
 export default userProfile;

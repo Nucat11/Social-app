@@ -127,11 +127,12 @@ export const CommentForm = ({ postSingle, userId }: Props) => {
             <h2>{commentSingle.fullname}</h2>
               <p>{commentSingle.comment}</p>
           </div>
-          {commentSingle.id === user!.uid && (
+          {(commentSingle.id === user!.uid || userId === user!.uid) && (
             <CommentDropdown
               postID={postSingle.id}
               commentID={commentSingle.parentID}
-              user={userId}
+              userID={userId}
+              commentCreatorID={commentSingle.id}
             />
           )}
         </div>

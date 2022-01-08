@@ -34,4 +34,7 @@
     width: 600px;
     margin-left: -20px;
   }
-    
+  .postFeatures {
+    display: flex;
+    justify-content: space-evenly;
+  }

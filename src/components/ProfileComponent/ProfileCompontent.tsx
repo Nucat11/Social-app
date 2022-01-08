@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./ProfileComponent.module.css";
-import { ref, get } from "firebase/database";
+import { ref, get, DatabaseReference, onValue } from "firebase/database";
 import { db } from "../../../lib/firebase/firebase";
 import { AuthContext, ContextState } from "../AuthContext/AuthContext";
 import { CreatePostForm } from "../Forms/CreatePostForm/CreatePostForm";
@@ -8,6 +8,7 @@ import { FileDropUpload } from "../ReusableComponents/FileDropUpload/FileDropUpl
 import CustomButton from "../ReusableComponents/CustomButton/CustomButton";
 import { Information } from "./Information/Information";
 import { CreatePostPopup } from "./CreatePostPopup/CreatePostPopup";
+import { Friends } from "./Friends/Friends";
 
 interface Props {
   userID: string;
@@ -18,76 +19,81 @@ export const ProfileComponent = ({ userID }: Props) => {
   const [fullname, setFullname] = useState("");
   const refer = ref(db, "users/" + userID);
   const [profileSettingsType, setProfileSettingsType] = useState("posts");
-  const [img, setImg] = useState("");
+  const [imgAv, setImgAv] = useState("");
 
-  get(refer).then((snapshot) => {
-    setFullname(snapshot.val().fullname);
-  });
-  get(refer).then((snapshot) => {
-    setImg(snapshot.val().avatar);
-  });
+  useEffect(() => {
 
-  const renderSwitch = (param: string) => {
-    switch (param) {
-      case "posts":
-        return (
-          <div className={styles.postForm}>
-            {user!.uid === userID && (
-              <div>
-                <CreatePostPopup />
-                <CreatePostForm userID={user!.uid} />
-              </div>
-            )}
-            {user!.uid !== userID && (
-              <div>
-                <CreatePostForm userID={userID} />
-              </div>
-            )}
-          </div>
-        );
-      case "information":
-        return <Information />;
-      default:
-        return (
-          <div className={styles.postForm}>
-            {user!.uid === userID && (
-              <div>
-                <CreatePostPopup />
-                <CreatePostForm userID={user!.uid} />
-              </div>
-            )}
-            {user!.uid !== userID && (
-              <div>
-                <CreatePostForm userID={userID} />
-              </div>
-            )}
-          </div>
-        );
-    }
-  };
+    onValue(
+      refer,
+      (snapshot) => {
+        setFullname(snapshot.val().fullname);
+        setImgAv(snapshot.val().avatar);
+      }
+    )
 
-  function fileUpload() {
-    if (user!.uid === userID) {
-      return <FileDropUpload />;
-    } else {
-      return (
-        <img
-          src={
-            img
-              ? img
-              : "https://res.cloudinary.com/nucat/image/upload/v1641135095/wallpaper-for-facebook-profile-photo_bh9nxd.jpg"
-          }
-          className={styles.avatar}
-        ></img>
-      );
-    }
-  }
+
+  },[userID])
+
+
+    const renderSwitch = (param: string) => {
+     switch (param) {
+       case "posts":
+         return (
+           <div className={styles.postForm}>
+             {user!.uid === userID && (
+               <div>
+                 <CreatePostPopup />
+                 <CreatePostForm userID={user!.uid} />
+               </div>
+             )}
+             {user!.uid !== userID && (
+               <div>
+                 <CreatePostForm userID={userID} />
+               </div>
+             )}
+           </div>
+         );
+       case "information":
+         return <Information />;
+       default:
+         return (
+           <div className={styles.postForm}>
+             {user!.uid === userID && (
+               <div>
+                 <CreatePostPopup />
+                 <CreatePostForm userID={user!.uid} />
+               </div>
+             )}
+             {user!.uid !== userID && (
+               <div>
+                 <CreatePostForm userID={userID} />
+               </div>
+             )}
+           </div>
+         );
+     }
+   };
+
+
+
 
   return (
     <div className={styles.profileDiv}>
       <div className={styles.profileHeader}>
-        {fileUpload()}
+        {user!.uid === userID ? (
+          <FileDropUpload />
+        ) : (
+          <img
+            src={
+              imgAv
+                ? imgAv
+                : "https://res.cloudinary.com/nucat/image/upload/v1641135095/wallpaper-for-facebook-profile-photo_bh9nxd.jpg"
+            }
+            className={styles.avatar}
+          ></img>
+        )}
         <h1>{fullname}</h1>
+        {user!.uid !== userID && <Friends userID={userID} />}
       </div>
       <hr />
       <div className={styles.divWithButtons}>
@@ -112,7 +118,6 @@ export const ProfileComponent = ({ userID }: Props) => {
           Information
         </CustomButton>
       </div>
-
       {renderSwitch(profileSettingsType)}
     </div>
   );
