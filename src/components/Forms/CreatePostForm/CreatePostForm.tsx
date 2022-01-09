@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 // eslint-disable-next-line @typescript-eslint/no-const-requires
 import { ref, onValue, DataSnapshot } from "firebase/database";
 import { db } from "../../../../lib/firebase/firebase";
-import { AuthContext, ContextState } from "../../AuthContext/AuthContext";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import styles from "./CreatePost.module.css";
 import { SinglePost } from "../../ReusableComponents/SinglePost/SinglePost";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -16,12 +15,14 @@ interface Props {
 export const CreatePostForm = ({ userID }: Props) => {
   const [postsArr, setPostsArr] = useState<Inputs[]>([]);
   const [fullNameVal, setFullNameVal] = useState("");
+  const [avatar, setAvatar] = useState("");
   const refer = ref(db, "users/" + userID + "/posts");
   const fullName = ref(db, "users/" + userID + "/fullname");
+  const avatarRef = ref(db, "users/" + userID + "/avatar");
 
   useEffect(() => {
     let posts: Inputs[] = [];
-    
+    let isCancelled = false;
     onValue(
       refer,
       (snapshot: DataSnapshot) => {
@@ -31,8 +32,11 @@ export const CreatePostForm = ({ userID }: Props) => {
           childData.id = postID;
           posts.push(childData);
         });
-        setPostsArr(posts);
-        posts = [];
+        if (!isCancelled) {
+          setPostsArr(posts);
+          posts = [];
+        }
+
       },
       (err) => {
         console.log(err);
@@ -46,7 +50,21 @@ export const CreatePostForm = ({ userID }: Props) => {
       (err) => {
         console.log(err);
       }
+      
     );
+    onValue(
+      avatarRef,
+      (snapshot: DataSnapshot) => {
+        setAvatar(snapshot.val());
+      },
+      (err) => {
+        console.log(err);
+      }
+      
+    );
+    return () => {
+      isCancelled = true;
+    };
   }, [userID]);
 
   return (
@@ -57,6 +75,7 @@ export const CreatePostForm = ({ userID }: Props) => {
           postSingle={postSingle}
           fullNameVal={fullNameVal}
           userID={userID}
+          avatar={avatar}
         />
       ))}
     </div>

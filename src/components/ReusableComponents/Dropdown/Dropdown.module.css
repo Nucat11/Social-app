@@ -13,8 +13,10 @@
     width: 40px;
     height: 40px;
     transition: 0.2s;
+    color: rgba(128, 128, 128, 0.753);
 }
 .dropdownDiv button:hover {
-    background-color: gray;
+    background-color: #52154e2c;
     transition: 0.2s;
+    color: rgb(128, 128, 128)
 }

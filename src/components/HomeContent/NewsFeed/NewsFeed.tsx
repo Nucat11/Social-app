@@ -9,22 +9,29 @@ import { db } from "../../../../lib/firebase/firebase";
 import { AuthContext, ContextState } from "../../AuthContext/AuthContext";
 import { CreatePostForm } from "../../Forms/CreatePostForm/CreatePostForm";
 import { CreatePostPopup } from "../../ProfileComponent/CreatePostPopup/CreatePostPopup";
-import { SinglePost } from "../../ReusableComponents/SinglePost/SinglePost";
 import styles from "./NewsFeed.module.css";
 
 export const Newsfeed: React.FC = () => {
   const { user } = useContext(AuthContext) as ContextState;
   const refer = ref(db, "friends/" + user!.uid);
-  const [followers, setFollowers] = useState([]);
+  const [followers, setFollowers] = useState<string[]>([]);
   useEffect(() => {
-    let followingArr: Inputs[] = [];
+    let isCancelled = false;
+    let followingArr: string[] = [];
     onValue(refer, (snapshot: DataSnapshot) => {
       snapshot.forEach((childSnapshot) => {
-        followingArr.push(childSnapshot.key);
-      })
-      setFollowers(followingArr);
-    })
-  },[])
+        if (childSnapshot.key) {
+          followingArr.push(childSnapshot.key);
+        }
+      });
+      if (!isCancelled) {
+        setFollowers(followingArr);
+      }
+    });
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
 
   let id = 0;
 
@@ -34,8 +41,7 @@ export const Newsfeed: React.FC = () => {
       <CreatePostForm userID={user!.uid} />
       {followers!.map((postSingle) => {
         id++;
-        return <CreatePostForm userID={postSingle} key={id}/>
-
+        return <CreatePostForm userID={postSingle} key={id} />;
       })}
     </div>
   );

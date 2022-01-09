@@ -1,10 +1,29 @@
 .likeActive {
-    background-color: black;
     transition: .5s;
-    color: white;
   }
   .likeDisabled {
-    background-color: blue;
     transition: .5s;
-    color: white;
+    color: #52154e !important;
+  }
+  .likeActive svg{
+    width: 20px;
+    height: 15px;
+  }
+  .likeDisabled svg{
+    transition: .5s;
+    animation: likeAnimation 1s ;
+    width: 20px;
+    height: 15px;
+  }
+  .likeDisabled svg path {
+    fill: #52154e ;
+  }
+
+  @keyframes likeAnimation {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.5) rotate(15deg);
+    }
   }

@@ -12,8 +12,7 @@ interface Props {
   width: string;
   type?: "button" | "submit" | "reset";
   id?: Path<Inputs>
-
-
+  classButton?: string;
 }
 
 const CustomButton: React.FC<Props> = ({ 
@@ -26,14 +25,13 @@ const CustomButton: React.FC<Props> = ({
     width,
     type,
     id,
-    
-
+    classButton
   }) => { 
   return (
     <button
       id={id}
       type={type}
-      className={styles.customButton} 
+      className={styles.customButton + " " + classButton} 
       onClick={onClick}
       style={{
          backgroundColor: color,

@@ -59,7 +59,7 @@ export const CommentDropdown = ({ postID, commentID, userID, commentCreatorID }:
       };
     }, [ref]);
   }
-  const onSubmit = (data:any) => {
+  const onSubmit = (data:Inputs) => {
     setInput(false);
     updateUserData(userID, postID,commentID, data.comment);
   };

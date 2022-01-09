@@ -6,7 +6,7 @@ interface Inputs {
   date: Date;
   acceptTerms: boolean;
   preventDefault: function;
-  id: string | any;
+  id: string;
   comment: string;
   avatar: File;
   parentID: string;

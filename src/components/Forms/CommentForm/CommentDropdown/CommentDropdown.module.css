@@ -1,20 +1,25 @@
 .dropdownMenu {
-    position: absolute;
-    background-color: white;
-    padding: 20px;
-    border-radius: 20px;
+  position: absolute;
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
 }
-.dropdownDiv .dropdownToggle{
-    font-size: 20px;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    transition: 0.2s;
+.dropdownDiv .dropdownToggle {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  transition: 0.2s;
 }
 .dropdownDiv button:hover {
-    background-color: gray;
-    transition: 0.2s;
+  background-color: #52154e2c;
+  transition: 0.2s;
+  color: rgb(128, 128, 128);
+}
+.dropdownDiv button {
+  transition: 0.2s;
+  color: rgb(128, 128, 128);
 }

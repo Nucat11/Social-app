@@ -42,7 +42,7 @@ export const Search = ({ user }: Props) => {
     setValue(value);
   }, 300);
 
-  function handleChange(e: any) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.value === "") {
       setValue("~");
     } else {

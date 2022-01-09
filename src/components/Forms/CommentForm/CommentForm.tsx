@@ -1,18 +1,10 @@
-import {
-  child,
-  DataSnapshot,
-  onValue,
-  push,
-  ref,
-  update,
-} from "firebase/database";
+import { DataSnapshot, onValue, push, ref } from "firebase/database";
 import { useContext, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { db } from "../../../../lib/firebase/firebase";
 import { commentsSchema } from "../../../helpers/formSchemas";
 import { AuthContext, ContextState } from "../../AuthContext/AuthContext";
 import CustomButton from "../../ReusableComponents/CustomButton/CustomButton";
-import { MyInput } from "../../ReusableComponents/Input/MyInput";
 import { CommentDropdown } from "./CommentDropdown/CommentDropdown";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { yupResolver } = require("@hookform/resolvers/yup");
@@ -21,7 +13,7 @@ interface Props {
   postSingle: {
     id: string;
   };
-
+  avatar: string;
   userId: string;
 }
 
@@ -32,14 +24,24 @@ function writePostComment(
   fullname: string,
   id: string
 ) {
+  let date: string;
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, "0");
+  const mm = String(today.getMonth() + 1).padStart(2, "0");
+  const yyyy = today.getFullYear();
+  const hours = String(today.getHours()).padStart(2, "0");
+  const minutes = String(today.getMinutes()).padStart(2, "0");
+  date = hours + ":" + minutes + " " + mm + "/" + dd + "/" + yyyy;
+
   push(ref(db, "users/" + userId + "/posts/" + postId + "/comments"), {
     fullname,
     comment,
     id,
+    date
   });
 }
 
-export const CommentForm = ({ postSingle, userId }: Props) => {
+export const CommentForm = ({ postSingle, userId, avatar }: Props) => {
   const [commentsArr, setCommentsArr] = useState<Inputs[]>([]);
   const [fullNameVal, setFullNameVal] = useState("");
   const { user } = useContext(AuthContext) as ContextState;
@@ -51,8 +53,6 @@ export const CommentForm = ({ postSingle, userId }: Props) => {
   } = useForm<Inputs>({
     resolver: yupResolver(commentsSchema),
   });
-
-
   const postComment: SubmitHandler<Inputs> = (data) => {
     writePostComment(
       userId,
@@ -96,7 +96,7 @@ export const CommentForm = ({ postSingle, userId }: Props) => {
         console.log(err);
       }
     );
-  }, [onValue]);
+  }, []);
 
   return (
     <div>
@@ -109,7 +109,7 @@ export const CommentForm = ({ postSingle, userId }: Props) => {
           id={postSingle.id}
           type="text"
           {...register("comment")}
-          placeholder="Aa"
+          placeholder="Comment..."
         ></input>
         {errors.comment && <div>{errors.comment.message}</div>}
         <CustomButton
@@ -123,10 +123,17 @@ export const CommentForm = ({ postSingle, userId }: Props) => {
       </form>
       {commentsArr.map((commentSingle) => (
         <div key={commentSingle.parentID} className={styles.comment}>
-          <div>
+          <div className={styles.commentDiv}>
+          <div className={styles.avatarWithContent}>
+          <img src={avatar}></img>
+          <div className={styles.commentContent}>
             <h2>{commentSingle.fullname}</h2>
-              <p>{commentSingle.comment}</p>
+            <p>{commentSingle.comment}</p>
           </div>
+          </div>
+            <p className={styles.date}>{commentSingle.date}</p>
+          </div>
+
           {(commentSingle.id === user!.uid || userId === user!.uid) && (
             <CommentDropdown
               postID={postSingle.id}
@@ -134,7 +141,7 @@ export const CommentForm = ({ postSingle, userId }: Props) => {
               userID={userId}
               commentCreatorID={commentSingle.id}
             />
-          )}
+          )}  
         </div>
       ))}
     </div>

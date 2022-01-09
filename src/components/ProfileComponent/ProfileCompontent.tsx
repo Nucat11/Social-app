@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./ProfileComponent.module.css";
-import { ref, get, DatabaseReference, onValue } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { db } from "../../../lib/firebase/firebase";
 import { AuthContext, ContextState } from "../AuthContext/AuthContext";
 import { CreatePostForm } from "../Forms/CreatePostForm/CreatePostForm";
@@ -22,60 +22,50 @@ export const ProfileComponent = ({ userID }: Props) => {
   const [imgAv, setImgAv] = useState("");
 
   useEffect(() => {
+    onValue(refer, (snapshot) => {
+      setFullname(snapshot.val().fullname);
+      setImgAv(snapshot.val().avatar);
+    });
+  }, [userID]);
 
-    onValue(
-      refer,
-      (snapshot) => {
-        setFullname(snapshot.val().fullname);
-        setImgAv(snapshot.val().avatar);
-      }
-    )
-
-
-  },[userID])
-
-
-    const renderSwitch = (param: string) => {
-     switch (param) {
-       case "posts":
-         return (
-           <div className={styles.postForm}>
-             {user!.uid === userID && (
-               <div>
-                 <CreatePostPopup />
-                 <CreatePostForm userID={user!.uid} />
-               </div>
-             )}
-             {user!.uid !== userID && (
-               <div>
-                 <CreatePostForm userID={userID} />
-               </div>
-             )}
-           </div>
-         );
-       case "information":
-         return <Information />;
-       default:
-         return (
-           <div className={styles.postForm}>
-             {user!.uid === userID && (
-               <div>
-                 <CreatePostPopup />
-                 <CreatePostForm userID={user!.uid} />
-               </div>
-             )}
-             {user!.uid !== userID && (
-               <div>
-                 <CreatePostForm userID={userID} />
-               </div>
-             )}
-           </div>
-         );
-     }
-   };
-
-
-
+  const renderSwitch = (param: string) => {
+    switch (param) {
+      case "posts":
+        return (
+          <div className={styles.postForm}>
+            {user!.uid === userID && (
+              <div>
+                <CreatePostPopup />
+                <CreatePostForm userID={user!.uid} />
+              </div>
+            )}
+            {user!.uid !== userID && (
+              <div>
+                <CreatePostForm userID={userID} />
+              </div>
+            )}
+          </div>
+        );
+      case "information":
+        return <Information />;
+      default:
+        return (
+          <div className={styles.postForm}>
+            {user!.uid === userID && (
+              <div>
+                <CreatePostPopup />
+                <CreatePostForm userID={user!.uid} />
+              </div>
+            )}
+            {user!.uid !== userID && (
+              <div>
+                <CreatePostForm userID={userID} />
+              </div>
+            )}
+          </div>
+        );
+    }
+  };
 
   return (
     <div className={styles.profileDiv}>

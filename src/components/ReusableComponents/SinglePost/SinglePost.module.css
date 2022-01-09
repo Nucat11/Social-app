@@ -1,40 +1,113 @@
 .postHead {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  .singlePost {
-    background-color: #e7ddda;
-    padding: 20px;
-    margin: 0.3%;
-    width: 600px;
-    border-radius: 20px;
-    padding-top: 0;
-    box-shadow: 0 0px 0px 1px #52154e;
-  }
+.singlePost {
+  background-color: #e7ddda;
+  padding: 20px;
+  margin: 0.3%;
+  width: 600px;
+  border-radius: 20px;
+  border: solid 1px rgba(128, 128, 128, 0.192);
+  padding-top: 0;
+  box-shadow: 0 2px 1px -1px #52154e;
+}
+
+.singlePost h4,
+.singlePost .date {
+  font-family: "Proza Libre", sans-serif;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.432);
+}
+.singlePost h4 {
+  color: rgb(0, 0, 0);
+  font-size: 15px;
+}
+.date {
+  margin-top: -20px !important;
+  font-weight: 600;
+}
+.singlePost p {
+  font-family: "Proza Libre", sans-serif;
+  margin-top: 0px;
   
-  .singlePost h4,
-  .singlePost .date {
-    font-family: "Proza Libre", sans-serif;
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.432);
-  }
-  .date {
-    margin-top: -15px;
-    font-weight: 600;
-  }
-  .singlePost p {
-    font-family: "Proza Libre", sans-serif;
-    font-size: 17px;
-    color: black;
-  }
-  
-  .singlePost img {
-    width: 600px;
-    margin-left: -20px;
-  }
-  .postFeatures {
-    display: flex;
-    justify-content: space-evenly;
-  }
+}
+
+.singlePost .postContent img {
+  width: 598px;
+  margin-left: -20px;
+}
+.postFeatures {
+  display: flex;
+  justify-content: space-evenly;
+}
+.postHead img {
+  width: 40px;
+  height: 40px;
+  border: solid 1px rgba(128, 128, 128, 0.192);
+  border-radius: 100%;
+  margin: 0;
+  margin-right: 10px;
+}
+.postInfo {
+  display: flex;
+  align-items: center;
+}
+.singlePost hr {
+  border: solid 1px #52154e2c;
+}
+.likeDiv img {
+  width: 20px;
+}
+.likeIcon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  background-image: url("https://res.cloudinary.com/nucat/image/upload/v1641730494/like_mb6ae9.webp");
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-color: #52154e;
+  border-radius: 100%;
+  background-size: 60%;
+}
+.likeDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.likeDiv p {
+  margin: 0;
+  margin-top: 6px;
+  margin-left: 5px;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.514);
+}
+.likeDiv :nth-child(1) {
+  display: flex;
+  align-items: center;
+}
+.likeDiv .commentP:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.postFeatures button:hover {
+  background-color: #52154e2c !important;
+  transition: 0.5s;
+  border-radius: 8px;
+}
+.postFeatures button {
+  color: rgba(0, 0, 0, 0.432);
+  transition: .5s;
+}
+.postFeatures button:active {
+  background-color: #52154e !important;
+  transition: 0.5s;
+}
+.postContent p {
+  font-size: 20px;
+  color: black;
+}
