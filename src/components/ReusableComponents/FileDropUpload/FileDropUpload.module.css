@@ -1,7 +1,20 @@
 
 
-.avatarDiv input button {
-    background-color: black;
+.avatarDiv button {
+    background-color: #52154e;
+    z-index: 1;
+    height: 120px;
+    margin-top: -80px;
+    color: white;
+    display: inline-flex;
+    align-items: flex-end; 
+    line-height: 40px;
+    justify-content: center;
+    border: none;
+    border-radius: 15px;
+    font-family: "Proza Libre", sans-serif;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 .avatarDiv input[type="file"] {
@@ -9,12 +22,17 @@
 }
 .avatarDiv label {
     cursor: pointer;
-    border: black solid 2px;
+    border: #52154e solid 2px;
     border-radius: 100%;
     background-size: cover;
     overflow: hidden;
     width: 150px;
     height: 150px;
+    z-index: 2;
+}
+.avatarDiv label:hover {
+    background: rgb(0, 0, 0) url("https://res.cloudinary.com/nucat/image/upload/v1641901075/camera_brdkgd.png") no-repeat center center;
+    background-size: 50%;
 }
 .avatarDiv form {
     display: flex;
@@ -22,6 +40,10 @@
     justify-content: center;
 }
 .avatarDiv label img {
+    background-color: white;
     width: 150px;
     height: 150px;
+}
+.avatarDiv img:hover {
+    opacity: 0.2;
 }

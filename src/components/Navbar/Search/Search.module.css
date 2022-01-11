@@ -15,3 +15,9 @@
     border-radius: 100%;
     margin-right: 5px;
   }
+  .searchButton {
+      width: 500px;
+      height: 40px;
+      border-radius: 20px;
+      border: none;
+  }

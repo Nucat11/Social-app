@@ -82,10 +82,10 @@ export const Search = ({ user }: Props) => {
     <div>
       <button
         type="button"
-        className="button"
+        className={styles.searchButton}
         onClick={() => setOpen((o) => !o)}
       >
-        Open Modal
+        Search
       </button>
       <Popup
         className="searchDropdown"

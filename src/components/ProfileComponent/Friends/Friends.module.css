@@ -1,10 +1,24 @@
 .followActive {
-    background-color: black;
+    background-color: #5c5c7b;
     transition: .5s;
     color: white;
+    width: 100%;
+    border-radius: 15px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
   }
   .followDisabled {
-    background-color: blue;
+    cursor: pointer;
+    border-radius: 15px;
+    border: none;
+    width: 100%;
+    background-color: #52154e;
     transition: .5s;
     color: white;
+    height: 30px;
+  }
+  /* dark theme */
+  [data-theme="dark"] .followActive {
+    background-color: #a7adc6 ;
   }

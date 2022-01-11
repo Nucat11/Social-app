@@ -1,14 +1,25 @@
 .commentForm input {
-  all: unset;
+  font-family: "Proza Libre", sans-serif;
   width: 100%;
   height: 40px;
   background-color: #fbf3f3;
   border-radius: 20px;
+  border: none;
+  padding-left: 10px;
+  z-index: 2;
 }
+.commentForm input::placeholder {
+  font-family: "Proza Libre", sans-serif;
+}
+.commentForm input:focus {
+  outline: none;
+}
+
 .commentForm {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
+  margin-bottom: 20px;
 }
 .comment {
   display: flex;
@@ -26,10 +37,13 @@
   font-family: "Proza Libre", sans-serif;
   margin: 0;
 }
+.commentContent h2 a {
+  color: #111344;
+  text-decoration: none;
+}
 .commentContent p {
   font-size: 14px;
   margin: 0;
-  color: black;
 }
 .comment img {
   width: 30px;
@@ -48,4 +62,29 @@
 .commentDiv .date {
   font-size: 12px;
   color: rgba(0, 0, 0, 0.432);
+}
+.commentForm button {
+  background: url("https://res.cloudinary.com/nucat/image/upload/v1641811512/send_ejhvno.png")
+    no-repeat;
+  background-position: 78% 50%;
+  background-size: 15%;
+  z-index: 1;
+  margin-left: -100px;
+}
+/* Dark mode */
+[data-theme="dark"] .commentContent {
+  background-color: #111344a9;
+}
+[data-theme="dark"] .commentForm input {
+  background-color: #111344a9;
+}
+[data-theme="dark"] .commentForm input::placeholder {
+  color: #a7adc6;
+}
+[data-theme="dark"] .commentContent h2 a {
+  color: #a7adc6;
+  text-decoration: none;
+}
+[data-theme="dark"] .commentContent {
+  color: white !important;
 }

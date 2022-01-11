@@ -1,4 +1,5 @@
 import { DataSnapshot, onValue, push, ref } from "firebase/database";
+import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { db } from "../../../../lib/firebase/firebase";
@@ -106,20 +107,19 @@ export const CommentForm = ({ postSingle, userId, avatar }: Props) => {
         noValidate
       >
         <input
+        placeholder="Comment..."
           id={postSingle.id}
           type="text"
           {...register("comment")}
-          placeholder="Comment..."
         ></input>
-        {errors.comment && <div>{errors.comment.message}</div>}
         <CustomButton
           type="submit"
           border="none"
           color="#111344a9"
-          height="50px"
+          height="40px"
           radius="40px"
           width="40%"
-        />
+        ></CustomButton>
       </form>
       {commentsArr.map((commentSingle) => (
         <div key={commentSingle.parentID} className={styles.comment}>
@@ -127,7 +127,7 @@ export const CommentForm = ({ postSingle, userId, avatar }: Props) => {
           <div className={styles.avatarWithContent}>
           <img src={avatar}></img>
           <div className={styles.commentContent}>
-            <h2>{commentSingle.fullname}</h2>
+            {user!.uid !== commentSingle.id ? <h2><Link href={`/user/${commentSingle.id}`}>{commentSingle.fullname}</Link></h2> : <h2><Link href={`/profile`}>{commentSingle.fullname}</Link></h2>}
             <p>{commentSingle.comment}</p>
           </div>
           </div>

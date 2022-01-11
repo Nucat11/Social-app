@@ -58,4 +58,7 @@
   opacity: 0.4;
   width: 52%;
 }
+[data-theme="dark"] .newsFeed {
+  background-color: #212f45;
+}
 

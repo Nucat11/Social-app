@@ -22,10 +22,16 @@ export const ProfileComponent = ({ userID }: Props) => {
   const [imgAv, setImgAv] = useState("");
 
   useEffect(() => {
+    let isCancelled = false;
     onValue(refer, (snapshot) => {
+      if (!isCancelled) {
       setFullname(snapshot.val().fullname);
       setImgAv(snapshot.val().avatar);
+      }
     });
+    return () => {
+      isCancelled = true;
+    };
   }, [userID]);
 
   const renderSwitch = (param: string) => {
@@ -69,45 +75,50 @@ export const ProfileComponent = ({ userID }: Props) => {
 
   return (
     <div className={styles.profileDiv}>
+      <div className={styles.topSection}>
+
       <div className={styles.profileHeader}>
         {user!.uid === userID ? (
           <FileDropUpload />
-        ) : (
-          <img
+          ) : (
+            <img
             src={
               imgAv
-                ? imgAv
-                : "https://res.cloudinary.com/nucat/image/upload/v1641135095/wallpaper-for-facebook-profile-photo_bh9nxd.jpg"
+              ? imgAv
+              : "https://res.cloudinary.com/nucat/image/upload/v1641135095/wallpaper-for-facebook-profile-photo_bh9nxd.jpg"
             }
             className={styles.avatar}
-          ></img>
-        )}
+            ></img>
+            )}
         <h1>{fullname}</h1>
         {user!.uid !== userID && <Friends userID={userID} />}
       </div>
       <hr />
       <div className={styles.divWithButtons}>
         <CustomButton
-          color="white"
+          color="transparent"
           height="50px"
           width="100px"
+          border="none"
           onClick={() => {
             setProfileSettingsType("posts");
           }}
-        >
+          >
           Post
         </CustomButton>
         <CustomButton
-          color="white"
+          color="transparent"
           height="50px"
           width="100px"
+          border="none"
           onClick={() => {
             setProfileSettingsType("information");
           }}
-        >
+          >
           Information
         </CustomButton>
       </div>
+          </div>
       {renderSwitch(profileSettingsType)}
     </div>
   );

@@ -1,19 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rambla:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 .profileDiv {
+  background-color: #efe9e7;
+  min-height: 100vh;
+  display: flex;
   padding-top: 100px;
+  
 }
 .profileHeader {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
 }
 .profileDiv hr {
-  width: 70%;
-  margin-top: 35px;
+  border: solid 1px #52154e2c;
 }
 .divWithButtons {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .avatar {
   width: 150px;
@@ -25,4 +31,46 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-left: 16%;
+}
+.topSection {
+  padding-top: 100px;
+  margin-top: -100px;
+  height: 102vh;
+  background-color: #e7ddda;
+  padding-bottom: 50px;
+  padding-right: 50px;
+  padding-left: 50px;
+  box-shadow: 10px 0 5px -5px #52154e2c;
+  -webkit-box-shadow: 10px 0 5px -5px #52154e2c;
+  -moz-box-shadow: 10px 0 5px -5px #52154e2c;
+  position: fixed;
+  width: 16%;
+}
+.profileDiv h1 {
+  text-align: center;
+  font-family: "Rambla", sans-serif;
+  color: #111344;
+}
+.divWithButtons button:hover{
+  background-color: #52154e2c !important;
+}
+.divWithButtons button{
+  border-radius: 10px;
+  color: #111344;
+  transition: 0.5s;
+}
+.profileHeader img{
+  border: #52154e solid 2px;
+}
+
+/* Dark theme */
+[data-theme="dark"] .profileDiv {
+  background-color: #212f45;
+}
+[data-theme="dark"] .topSection {
+  background-color: #a7adc6;
+}
+[data-theme="dark"] .profileDiv h1 {
+  color: #111344a9;
 }

@@ -49,5 +49,5 @@ function unFollow(
         }
       }
 
-    return( <button onClick={handleFollow} className={isFollowed ? styles.followActive : styles.followDisabled}>Follow</button>)
+    return( <button onClick={handleFollow} className={isFollowed ? styles.followActive : styles.followDisabled}>{!isFollowed ? "+ Follow" : "- Unfollow"}</button>)
 }

@@ -1,4 +1,5 @@
 import { ref, onValue, DataSnapshot } from "firebase/database";
+import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { db } from "../../../../lib/firebase/firebase";
 import { AuthContext, ContextState } from "../../AuthContext/AuthContext";
@@ -71,7 +72,7 @@ export const SinglePost = ({
         <div className={styles.postInfo}>
           <img src={avatar}></img>
           <div>
-            <h4>{fullNameVal}</h4>
+           {user!.uid !== userID ? <h4><Link href={`/user/${userID}`}>{fullNameVal}</Link></h4> : <h4><Link href={`/profile`}>{fullNameVal}</Link></h4>}
             <p className={styles.date}>{postSingle.date}</p>
           </div>
         </div>

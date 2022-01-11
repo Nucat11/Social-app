@@ -1,6 +1,7 @@
 import { ref, remove, update } from "firebase/database";
 import React, { useEffect, useRef, useState } from "react";
 import { db } from "../../../../lib/firebase/firebase";
+import CustomButton from "../CustomButton/CustomButton";
 import { PopupEditor } from "../PopupEditor/PopupEditor";
 import styles from "./Dropdown.module.css";
 
@@ -87,8 +88,8 @@ export const Dropdown = ({ user, postId }: Props) => {
         </button>
         {open && (
           <div className={styles.dropdownMenu}>
-            <button onClick={onClickDelete}> Usuń post </button>
-            <button onClick={onClickEdit}> Edytuj post </button>
+            <CustomButton color="transparent" height="20px" width="100%" border="none" onClick={onClickDelete}>Delete post</CustomButton>
+            <CustomButton color="transparent" height="20px" width="100%" border="none" onClick={onClickEdit}>Edit post</CustomButton>
           </div>
         )}
       </div>

@@ -5,6 +5,7 @@ import Popup from "reactjs-popup";
 import { db } from "../../../../../lib/firebase/firebase";
 import { commentsSchema } from "../../../../helpers/formSchemas";
 import { AuthContext, ContextState } from "../../../AuthContext/AuthContext";
+import CustomButton from "../../../ReusableComponents/CustomButton/CustomButton";
 import styles from "./CommentDropdown.module.css";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { yupResolver } = require("@hookform/resolvers/yup");
@@ -83,8 +84,9 @@ export const CommentDropdown = ({ postID, commentID, userID, commentCreatorID }:
         </button>
         {open && (
           <div className={styles.dropdownMenu}>
-            <button onClick={onClickDelete}> Usuń post </button>
-            {commentCreatorID === user!.uid  && <button onClick={onClickEdit}> Edytuj post </button>}
+             <CustomButton color="transparent" height="20px" width="100%" border="none" onClick={onClickDelete}>Delete comment</CustomButton>
+            {commentCreatorID === user!.uid  && <CustomButton color="transparent" height="20px" width="100%" border="none" onClick={onClickEdit}>Edit comment</CustomButton>}
+            
           </div>
         )}
       </div>

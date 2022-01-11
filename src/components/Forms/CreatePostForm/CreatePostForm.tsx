@@ -36,7 +36,6 @@ export const CreatePostForm = ({ userID }: Props) => {
           setPostsArr(posts);
           posts = [];
         }
-
       },
       (err) => {
         console.log(err);
@@ -50,7 +49,6 @@ export const CreatePostForm = ({ userID }: Props) => {
       (err) => {
         console.log(err);
       }
-      
     );
     onValue(
       avatarRef,
@@ -60,8 +58,8 @@ export const CreatePostForm = ({ userID }: Props) => {
       (err) => {
         console.log(err);
       }
-      
     );
+
     return () => {
       isCancelled = true;
     };

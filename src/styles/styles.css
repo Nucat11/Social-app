@@ -6,13 +6,13 @@ body {
   padding: 0;
 }
 
-label,
-input {
+.LoginAndRegister_container__hv4Vi label,
+.LoginAndRegister_container__hv4Vi input {
   transition: all 0.2s;
   touch-action: manipulation;
 }
 
-input {
+.LoginAndRegister_container__hv4Vi input {
   font-size: 1.5em;
   border: 1px solid #cccccc;
   font-family: inherit;
@@ -22,18 +22,18 @@ input {
   cursor: text;
 }
 
-input:focus {
+.LoginAndRegister_container__hv4Vi input:focus {
   outline: 0;
   border: 1px solid #666;
 }
 
-label {
+.LoginAndRegister_container__hv4Vi label {
   margin-left: 5px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-input:placeholder-shown + label {
+.LoginAndRegister_container__hv4Vi input:placeholder-shown + label {
   cursor: text;
   max-width: 66.66%;
   white-space: nowrap;
@@ -43,30 +43,30 @@ input:placeholder-shown + label {
   transform: translate(0, 2.125rem) scale(1.5);
 }
 
-::-webkit-input-placeholder {
+.LoginAndRegister_container__hv4Vi ::-webkit-input-placeholder {
   opacity: 0;
   transition: inherit;
 }
 
-input:focus::-webkit-input-placeholder {
+.LoginAndRegister_container__hv4Vi input:focus::-webkit-input-placeholder {
   font-size: 12px;
   opacity: 1;
   line-height: 12px;
   transform: translate3d(5px, -4px, 0);
 }
 
-input:not(:placeholder-shown) + label,
-input:focus + label {
+.LoginAndRegister_container__hv4Vi input:not(:placeholder-shown) + label,
+.LoginAndRegister_container__hv4Vi input:focus + label {
   transform: translate(0, 0) scale(1);
   cursor: pointer;
 }
-input[type="checkbox"] {
+.LoginAndRegister_container__hv4Vi input[type="checkbox"] {
   all: unset;
   position: relative;
   cursor: pointer;
   margin-bottom: 10px;
 }
-input[type="checkbox"]:before {
+.LoginAndRegister_container__hv4Vi input[type="checkbox"]:before {
   content: "";
   display: block;
   position: absolute;
@@ -78,7 +78,7 @@ input[type="checkbox"]:before {
   border-radius: 3px;
   background-color: white;
 }
-input[type="checkbox"]:checked:after {
+.LoginAndRegister_container__hv4Vi input[type="checkbox"]:checked:after {
   content: "";
   display: block;
   width: 5px;

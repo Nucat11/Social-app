@@ -114,7 +114,7 @@ export const FileDropUpload = () => {
           {...register("avatar")}
           onChange={handleChange}
         ></input>
-        <button>Change profile picture</button>
+        <button>Click here to update</button>
         {errors.avatar && <div>{errors.avatar.message}</div>}
         {error && <div>{error}</div>}
       </form>
