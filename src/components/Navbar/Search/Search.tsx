@@ -8,10 +8,9 @@ import {
   onValue,
 } from "firebase/database";
 import React, { useEffect, useState } from "react";
-import Popup from "reactjs-popup";
 import { db } from "../../../../lib/firebase/firebase";
 import styles from "./Search.module.css";
-
+import ClickAwayListener from "react-click-away-listener";
 import { useDebouncedCallback } from "use-debounce";
 import Link from "next/link";
 
@@ -37,7 +36,6 @@ export const Search = ({ user }: Props) => {
   const [value, setValue] = useState("~");
   const [searchArr, setSearchArr] = useState<SearchResults[]>([]);
   const [open, setOpen] = useState(false);
-  const closeModal = () => setOpen(false);
   const debounced = useDebouncedCallback((value) => {
     setValue(value);
   }, 300);
@@ -77,70 +75,64 @@ export const Search = ({ user }: Props) => {
       }
     );
   }, [value]);
+  function handleClickAway(e: any) {
+    setTimeout(() => {
+      setOpen(false);
 
+    },100)
+    setValue("~");
+    if(document.querySelector("input")) {
+      document.querySelector("input")!.value = ""
+    };
+  }
   return (
     <div>
-      <button
-        type="button"
-        className={styles.searchButton}
-        onClick={() => setOpen((o) => !o)}
-      >
-        Search
-      </button>
-      <Popup
-        className="searchDropdown"
-        open={open}
-        closeOnDocumentClick
-        onClose={closeModal}
-        position="right center"
-      >
-        <div className="content">
-          <input onChange={handleChange}></input>
-          {searchArr.map((searchResult) => {
-            if (searchResult.id === user) {
-              return (
-                <Link href="/profile" key={searchResult.id}>
-                  <a
-                    className={styles.searchNames}
-                    onClick={() => setOpen(false)}
+        <ClickAwayListener onClickAway={handleClickAway}>
+      <div className={open === true ? styles.returnBox : styles.returnBoxBlur}>
+          <input onChange={handleChange} className={styles.searchInput} onFocus={() => { setOpen(true); }} placeholder="Search for friend..."></input>
+        {searchArr.map((searchResult) => {
+          if (searchResult.id === user) {
+            return (
+              <Link href="/profile" key={searchResult.id}>
+                <a
+                  className={styles.searchNames}
+                  onClick={handleClickAway}
                   >
-                    <img
-                      src={
-                        searchResult.avatar
-                          ? searchResult.avatar
-                          : "https://res.cloudinary.com/nucat/image/upload/v1641135095/wallpaper-for-facebook-profile-photo_bh9nxd.jpg"
-                      }
-                      className={styles.avatar}
+                  <img
+                    src={
+                      searchResult.avatar
+                      ? searchResult.avatar
+                      : "https://res.cloudinary.com/nucat/image/upload/v1641135095/wallpaper-for-facebook-profile-photo_bh9nxd.jpg"
+                    }
+                    className={styles.avatar}
                     ></img>
-                    <p>{searchResult.fullname}</p>
-                  </a>
-                </Link>
-              );
-            } else {
-              return (
-                <Link href={`/user/${searchResult.id}`} key={searchResult.id}>
-                  <a
-                    className={styles.searchNames}
-                    onClick={() => setOpen(false)}
+                  <p>{searchResult.fullname}</p>
+                </a>
+              </Link>
+            );
+          } else {
+            return (
+              <Link href={`/user/${searchResult.id}`} key={searchResult.id}>
+                <a
+                  className={styles.searchNames}
+                  onClick={handleClickAway}
                   >
-                    <img
-                      src={
-                        searchResult.avatar
-                          ? searchResult.avatar
-                          : "https://res.cloudinary.com/nucat/image/upload/v1641135095/wallpaper-for-facebook-profile-photo_bh9nxd.jpg"
-                      }
-                      className={styles.avatar}
+                  <img
+                    src={
+                      searchResult.avatar
+                      ? searchResult.avatar
+                      : "https://res.cloudinary.com/nucat/image/upload/v1641135095/wallpaper-for-facebook-profile-photo_bh9nxd.jpg"
+                    }
+                    className={styles.avatar}
                     ></img>
-                    <p>{searchResult.fullname}</p>
-                  </a>
-                </Link>
-              );
-            }
-          })}
-        </div>
-        <div className="actions"></div>
-      </Popup>
-      <div className={styles.navbarItem}></div>
+                  <p>{searchResult.fullname}</p>
+                </a>
+              </Link>
+            );
+          }
+        })}
+      </div>
+        </ClickAwayListener>
     </div>
   );
 };

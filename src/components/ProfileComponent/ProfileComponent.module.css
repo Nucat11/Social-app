@@ -4,7 +4,7 @@
   background-color: #efe9e7;
   min-height: 100vh;
   display: flex;
-  padding-top: 100px;
+  padding-top: 60px;
   
 }
 .profileHeader {
@@ -13,6 +13,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  padding-top: 60px;
 }
 .profileDiv hr {
   border: solid 1px #52154e2c;

@@ -1,16 +1,41 @@
 .navbar {
-    height: 60px;
-    background-color: #e7ddda;
-    z-index: 10;
-    overflow: hidden;
-    position: fixed; 
-    width: 100%;  
-    top: 0; 
-    -webkit-box-shadow: 0px 0px 10px 0px rgba(82, 21, 78, 1);
-    -moz-box-shadow: 0px 0px 10px 0px rgba(82, 21, 78, 1);
-    box-shadow: 0px 0px 10px 0px #52154e;
-    display: flex;
+  height: 60px;
+  background-color: #e7ddda;
+  z-index: 10;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(82, 21, 78, 1);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(82, 21, 78, 1);
+  box-shadow: 0px 0px 10px 0px #52154e;
+  display: flex;
+  align-items: center;
+  padding-left: 5%;
+  padding-right: 5%;
 }
-.navbar button {
-    color: white;
+
+.homeButton:hover {
+  background-color: #52154e2c !important;
+  transition: 0.5s;
+  border-radius: 15px;
+}
+.homeButton svg g {
+  fill: #52154e;
+}
+.homeButtonActive {
+  background-color: #52154e8e;
+}
+.homeButtonDisabled {
+  background-color: none;
+}
+.homeButton {
+  width: 100px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: 0.5s;
 }
