@@ -25,7 +25,7 @@ const HomeContent: React.FC = () => {
               ></img><ThemeChanger /><Copyright />
             </div>
           ) : (
-            <div className={styles.newsFeed}><Newsfeed /><ThemeChanger /><Copyright /></div>
+            <div className={styles.newsFeed}><Newsfeed /><Copyright /></div>
           )}
           
           

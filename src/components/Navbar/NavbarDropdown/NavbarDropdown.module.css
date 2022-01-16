@@ -1,0 +1,11 @@
+.arrowTrigger {
+    width: 40px;
+    height: 40px;
+    transform: rotate(90deg);
+    cursor: pointer;
+    padding: 6px;
+}
+.arrowTrigger:hover {
+    background-color: #52154e2c;
+    border-radius: 20px;
+}

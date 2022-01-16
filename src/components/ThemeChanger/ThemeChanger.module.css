@@ -1,0 +1,15 @@
+.themeChanger img {
+    width: 10%;
+    margin: 5px;
+}
+.themeChanger button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.themeImg {
+    transform: rotateY(180deg);
+}

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rambla:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rambla:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 html,
 body {
   margin: 0;
@@ -61,14 +61,14 @@ body {
   transform: translate(0, 0) scale(1);
   cursor: pointer;
 }
-.LoginAndRegister_container__hv4Vi input[type="checkbox"] {
+.LoginAndRegister_container__hv4Vi input[type='checkbox'] {
   all: unset;
   position: relative;
   cursor: pointer;
   margin-bottom: 6px;
 }
-.LoginAndRegister_container__hv4Vi input[type="checkbox"]:before {
-  content: "";
+.LoginAndRegister_container__hv4Vi input[type='checkbox']:before {
+  content: '';
   display: block;
   position: absolute;
   width: 16px;
@@ -79,8 +79,8 @@ body {
   border-radius: 3px;
   background-color: white;
 }
-.LoginAndRegister_container__hv4Vi input[type="checkbox"]:checked:after {
-  content: "";
+.LoginAndRegister_container__hv4Vi input[type='checkbox']:checked:after {
+  content: '';
   display: block;
   width: 5px;
   height: 6px;
@@ -96,7 +96,7 @@ body {
 
 .myPopup-content {
   margin: auto;
-  background: rgb(255, 255, 255);
+  background: #ffffff;
   padding: 5px;
   width: 550px;
   padding: 1%;
@@ -114,4 +114,43 @@ body {
 .ql-editor {
   min-height: 200px;
   max-height: 600px;
+}
+
+.arrowPopup-arrow {
+  color: transparent;
+}
+.arrowPopup-content {
+  border-radius: 20px;
+  background: #e7ddda;
+  padding: 10px;
+  -webkit-animation: anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
+  animation: anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: fixed !important;
+}
+@keyframes anvil {
+  0% {
+    transform: scale(1) translateY(0px);
+    opacity: 0;
+    -webkit-box-shadow: 0px 0px 46px -24px #52154e;
+    -moz-box-shadow: 0px 0px 46px -24px #52154e;
+    box-shadow: 0px 0px 46px -24px #52154e;
+  }
+  1% {
+    transform: scale(0.96) translateY(6px);
+    opacity: 0;
+    -webkit-box-shadow: 0px 0px 46px -24px #52154e;
+    -moz-box-shadow: 0px 0px 46px -24px #52154e;
+    box-shadow: 0px 0px 46px -24px #52154e;
+  }
+  100% {
+    transform: scale(1) translateY(0px);
+    opacity: 1;
+    -webkit-box-shadow: 0px 0px 46px -24px #52154e;
+    -moz-box-shadow: 0px 0px 46px -24px #52154e;
+    box-shadow: 0px 0px 46px -24px #52154e;
+  }
 }

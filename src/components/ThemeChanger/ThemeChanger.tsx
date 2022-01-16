@@ -1,22 +1,31 @@
-import { useTheme } from "next-themes";
-import React, { useState, useEffect } from "react";
+import { useTheme } from 'next-themes'
+import React, { useState, useEffect } from 'react'
+import styles from './ThemeChanger.module.css'
 
 const ThemeChanger = () => {
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
 
   // When mounted on client, now we can show the UI
-  useEffect(() => setMounted(true), []);
+  useEffect(() => setMounted(true), [])
 
-  if (!mounted) return null;
+  if (!mounted) return null
 
   return (
-    <div>
-      The current theme is: {theme}
-      <button onClick={() => setTheme("light")}>Light Mode</button>
-      <button onClick={() => setTheme("dark")}>Dark Mode</button>
+    <div className={styles.themeChanger}>
+      {theme === 'light' ? (
+        <button onClick={() => setTheme('dark')}>
+          <img src="https://res.cloudinary.com/nucat/image/upload/v1642325983/moon-half-visible-face-on-light-and-half-on-darkness_fv6ccm.png" />
+          Change color theme
+        </button>
+      ) : (
+        <button onClick={() => setTheme('light')}>
+          <img className={styles.themeImg} src="https://res.cloudinary.com/nucat/image/upload/v1642325983/moon-half-visible-face-on-light-and-half-on-darkness_fv6ccm.png" />
+          Change color theme
+        </button>
+      )}
     </div>
-  );
-};
+  )
+}
 
-export default ThemeChanger;
+export default ThemeChanger

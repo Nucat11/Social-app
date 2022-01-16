@@ -13,5 +13,5 @@ const SignOut = () => {
 };
 
 export const SignOutButton: React.FC = () => {
-  return <CustomButton onClick={SignOut} border="none" color="blue" height="100px" radius="0" width="100px">Wyloguj</CustomButton>;
+  return <CustomButton onClick={SignOut} border="none" color="transparent" height="40px" radius="0" width="100px">Wyloguj</CustomButton>;
 };
